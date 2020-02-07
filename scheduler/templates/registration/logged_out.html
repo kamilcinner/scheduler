@@ -1,0 +1,10 @@
+{% extends "task_manager/base_generic.html" %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <p>Logged out!</p>
+      <a href="{% url 'login'%}">Click here to login again.</a>
+    </div>
+  </div>
+{% endblock %}

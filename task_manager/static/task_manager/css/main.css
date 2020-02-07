@@ -1,0 +1,22 @@
+body {
+    background-color: #424240;
+    color: white;
+}
+.bg-scheduler {
+    background-color: #00a161;
+}
+.dropdown-menu {
+    background-color: #424240;
+    border: #00a161;
+    border-style: solid;
+    border-width: 2px;
+}
+.dropdown-item {
+    color: #00a161;
+}
+a.dropdown-item:hover {
+    background-color: #424240;
+}
+h1 {
+    text-align: center;
+}
