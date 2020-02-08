@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'task_manager/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'task_manager/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'task_manager/css/input_form.css' %}">
     <title>Scheduler</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -20,20 +21,30 @@
   <body>
     <header>
       <nav class="navbar navbar-light bg-scheduler navbar-expand-lg">
-        <a class="navbar-brand" href="#"><img class="d-inline-block mr-1 align-bottom" src="{% static 'task_manager/images/logo.png' %}" width="30" height="30" alt="logo"></a>
+        <a class="navbar-brand" href="{% url 'task_manager:index' %}"><img class="d-inline-block mr-1 align-bottom" src="{% static 'task_manager/images/logo.png' %}" width="30" height="30" alt="logo"> Scheduler</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Navigation toggler">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainmenu">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="#">Start</a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Your account</a>
-              <div class="dropdown-menu" aria-labelledby="submenu">
-                <a class="dropdown-item" href="#">Login</a>
-                <a class="dropdown-item" href="#">Logout</a>
-              </div>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'task_manager:index' %}">Start</a></li>
+
+            {% if not user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+              <li class="nav-item"><a class="dropdown-item" href="{% url 'django_registration:user-create' %}">Register</a></li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'task_manager:task-list' %}">Tasks</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage tasks</a>
+                <div class="dropdown-menu" aria-labelledby="submenu">
+                    <a class="dropdown-item" href="{% url 'task_manager:task-create' %}">Create new</a>
+                    <a class="dropdown-item" href="#">Delete</a>
+                    <a class="dropdown-item" href="#">Mark done</a>
+                </div>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+
           </ul>
         </div>
       </nav>
