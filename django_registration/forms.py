@@ -22,6 +22,15 @@ class UserCreateModelForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
+    def clean_username(self):
+        # Check that the username len <= 20 and len >= 8
+        username = self.cleaned_data.get('username')
+        if len(username) > 20:
+            raise forms.ValidationError('Username too long.')
+        elif len(username) < 8:
+            raise forms.ValidationError('Username too short.')
+        return username
+
     def clean_password2(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get('password1')
@@ -32,12 +41,6 @@ class UserCreateModelForm(forms.ModelForm):
         validate_password(password2)
 
         return password2
-
-    def clean_username(self):
-        # Check that the username len <= 20 and len >= 8
-        username = self.cleaned_data.get('username')
-        if 8 > len(username) > 20:
-            raise forms.ValidationError('Username too long.')
 
     def save(self, commit=True):
         # Save the provided password in hashed format

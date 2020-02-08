@@ -3,36 +3,40 @@
 {% block content %}
   <div class="row">
     <div class="col-12">
-      {% if form.errors %}
-      <p>Your username and password didn't match. Please try again.</p>
-      {% endif %}
-
       {% if next %}
         {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed,
+        <p class="text-warning">Your account doesn't have access to this page. To proceed,
         please login with an account that has access.</p>
         {% else %}
-        <p>Please login to see this page.</p>
+        <p class="text-warning">Please login to see this page.</p>
         {% endif %}
       {% endif %}
 
       <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <div class="form-group">
-
           {{ form.username.label_tag }}
           <input class="form-control bg-scheduler-dark" id="{{ form.username.if_for_label }}" type="text" name="{{ form.username.html_name }}" maxlength="20" required>
+          {% for error in form.username.errors %}
+            <small class="text-danger">{{ form.username.errors }}</small>
+          {% endfor %}
         </div>
         <div class="form-group">
           {{ form.password.label_tag }}
           <input class="form-control bg-scheduler-dark" id="{{ form.password.if_for_label }}" type="password" name="{{ form.password.html_name }}" required>
+          {% for error in form.username.errors %}
+            <small class="text-danger">{{ form.password.errors }}</small>
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <small class="text-danger">{{ error }}</small>
+          {% endfor %}
         </div>
       <button type="submit" class="btn mb-3 bg-scheduler">Login</button>
       <input type="hidden" name="next" value="{{ next }}">
       </form>
 
       {# Assumes you setup the password_reset view in your URLconf #}
-      <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+      <p><a class="text-decoration-none text-muted" href="{% url 'password_reset' %}">Lost password?</a></p>
     </div>
   </div>
 {% endblock %}

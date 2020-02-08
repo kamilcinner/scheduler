@@ -1,10 +1,7 @@
 {% extends "task_manager/base_generic.html" %}
 
 {% block content %}
-  <div class="row">
-    <div class="col-12">
-      <p>Logged out!</p>
-      <a href="{% url 'login'%}">Click here to login again.</a>
-    </div>
-  </div>
+  <h1 class="text-center">Logged out!</h1>
+  <p class="text-center my-4">We hope You will come back soon!</p>
+  <a class="btn mb-3 cs-scheduler btn-lg w-100" href="{% url 'task_manager:index' %}" role="button">Back to Home</a>
 {% endblock %}

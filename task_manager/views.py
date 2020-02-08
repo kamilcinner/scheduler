@@ -7,9 +7,12 @@ from django.views import generic
 from task_manager.forms import TaskCreateModelForm
 from task_manager.models import Task
 
-@login_required
+#@login_required
 def index_view(request):
     return render(request, 'task_manager/index.html', context={})
+
+def inactive_yet_view(request):
+    return render(request, 'task_manager/inactive.html', context={})
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):

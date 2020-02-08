@@ -9,6 +9,10 @@
           <div class="form-group">
             {{ field.label_tag }}
             {{ field }}
+            <small class="text-muted">{{ field.help_text }}</small>
+            {% for error in field.errors %}
+              <br><small class="text-danger">{{ error }}</small>
+            {% endfor %}
           </div>
         {% endfor %}
         <button type="submit" class="btn mb-3 bg-scheduler">Submit</button>

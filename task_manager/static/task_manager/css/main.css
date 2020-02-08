@@ -2,9 +2,6 @@ body {
     background-color: #424240;
     color: white;
 }
-h1, h2 {
-    text-align: center;
-}
 .bg-scheduler {
     background-color: #00a161 !important;
 }
@@ -29,4 +26,12 @@ a.dropdown-item:hover {
 a.dropdown-item:focus {
     background-color: #424240;
     color: #00a161;
+}
+@media(max-width: 575px) {
+    h1 {
+        font-size: 30px;
+    }
+}
+.dropdown-divider {
+    border-top: 1px solid #00a161;
 }
