@@ -1,11 +1,9 @@
-from django.contrib.auth.models import User
-from django.forms import ModelForm, forms
 from django import forms
-
+from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 
 
-class UserCreateModelForm(ModelForm):
+class UserCreateModelForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
@@ -14,6 +12,11 @@ class UserCreateModelForm(ModelForm):
         help_texts = {
             'username': 'Min 8 and max 20 characters, allowing: letters, digits and {@.+-_}.'
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})
 
     # password1 = forms.PasswordInput() - doesn't work properly
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)

@@ -15,6 +15,9 @@ def index_view(request):
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
 
+    def get_queryset(self):
+        return Task.objects.filter(owner__username__exact=self.request.user.username)
+
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task

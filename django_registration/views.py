@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -10,3 +11,8 @@ class UserCreateView(generic.CreateView):
 
     def get_success_url(self):
         return reverse_lazy('blog:user-welcome')
+
+
+def user_login_view(request):
+
+    return render(request, 'registration/login.html', context={})

@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{% static 'task_manager/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'task_manager/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'task_manager/css/input_form.css' %}">
+    <link rel="stylesheet" href="{% static 'task_manager/css/social_icons.css' %}">
+    <link rel="stylesheet" href="{% static 'task_manager/fontello/css/fontello.css' %}">
     <title>Scheduler</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -31,7 +33,7 @@
 
             {% if not user.is_authenticated %}
               <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-              <li class="nav-item"><a class="dropdown-item" href="{% url 'django_registration:user-create' %}">Register</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'django_registration:user-create' %}">Register</a></li>
             {% else %}
               <li class="nav-item"><a class="nav-link" href="{% url 'task_manager:task-list' %}">Tasks</a></li>
               <li class="nav-item dropdown">
@@ -51,10 +53,44 @@
     </header>
 
     <main>
-      <div class="container">
+      <div class="container mt-3">
         {% block content %}{% endblock %}
       </div>
     </main>
+
+{#    <footer>#}
+{#      <div class="socials">#}
+{#        <div class="socialdivs">#}
+{#          <div class="fb">#}
+{#            <i class="icon-facebook"></i>#}
+{#          </div>#}
+{#          <div class="yt">#}
+{#            <i class="icon-youtube"></i>#}
+{#          </div>#}
+{#          <div class="tw">#}
+{#            <i class="icon-twitter"></i>#}
+{#          </div>#}
+{#          <div class="gplus">#}
+{#            <i class="icon-gplus"></i>#}
+{#          </div>#}
+{#          <div style="clear:both"></div>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="info">#}
+{#        All rights reserved &copy; 2020 Thank you for visit!#}
+{#      </div>#}
+{#    </footer>#}
+
+    <footer class="fixed-bottom ">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-between bg-scheduler">
+            <div class="fb text-center w-50"><i class="icon-facebook-official"></i></div>
+            <div class="ig text-center w-50"><i class="icon-instagram"></i></div>
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
