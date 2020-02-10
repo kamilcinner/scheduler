@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'task_manager/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'task_manager/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'task_manager/css/clean_links.css' %}">
     <link rel="stylesheet" href="{% static 'task_manager/css/input_form.css' %}">
     <link rel="stylesheet" href="{% static 'task_manager/css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'task_manager/fontello/css/fontello.css' %}">
@@ -22,8 +23,8 @@
   </head>
   <body>
     <header class="sticky-top">
-      <nav class="navbar navbar-light bg-scheduler navbar-expand-lg">
-        <a class="navbar-brand" href="{% url 'task_manager:index' %}"><img class="d-inline-block mr-1 align-bottom" src="{% static 'task_manager/images/logo.png' %}" width="30" height="30" alt="logo"> Scheduler</a>
+      <nav class="navbar navbar-light bg-scheduler navbar-expand-md">
+        <a class="navbar-brand c-scheduler-dark-2" href="{% url 'task_manager:index' %}"><img class="d-inline-block mr-1 align-bottom" src="{% static 'task_manager/images/logo.png' %}" width="30" height="30" alt="logo"> Scheduler</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Navigation toggler">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,10 +33,10 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'task_manager:index' %}">Start</a></li>
 
             {% if not user.is_authenticated %}
-              <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'django_registration:user-create' %}">Register</a></li>
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+              <a class="nav-link" href="{% url 'django_registration:user-create' %}">Register</a>
             {% else %}
-              <li class="nav-item"><a class="nav-link" href="{% url 'task_manager:task-list' %}">Tasks</a></li>
+              <a class="nav-link" href="{% url 'task_manager:task-list' %}">Tasks</a>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage tasks</a>
                 <div class="dropdown-menu" aria-labelledby="submenu">
@@ -54,26 +55,59 @@
                   <a class="dropdown-item" href="{% url 'task_manager:inactive-yet' %}">Other projects</a>
                 </div>
               </li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             {% endif %}
-
           </ul>
         </div>
       </nav>
     </header>
 
     <main>
-      <div class="container mt-3 min-vh-100">
+      <div class="container my-3 min-vh-100">
         {% block content %}{% endblock %}
       </div>
     </main>
 
-    <footer class="mb-0 p-0">
-      <div class="d-flex justify-content-between bg-scheduler">
-        <div class="fb text-center w-50"><i class="icon-facebook-official"></i></div>
-        <div class="ig text-center w-50"><i class="icon-instagram"></i></div>
+    <footer class="bg-scheduler-dark-2 py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h1 class="h2 my-3">About creator</h1>
+            <p class="">I am Computer Science student at Lublin University of Technology who has started his first adventure with computers and programming in very youth years.</p>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h1 class="h2 my-3">Projects</h1>
+            <a class="text-decoration-none d-flex" href="{% url 'task_manager:inactive-yet' %}">
+              <i class=""></i>
+              <strong class="my-1">Scheduler</strong>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h1 class="h2 my-3">Socials</h1>
+            <a class="text-decoration-none d-flex" href="https://www.linkedin.com/in/kamil-cinner-909b98196">
+              <i class="icon-linkedin-squared"></i>
+              <strong class="my-1">Kamil Cinner</strong>
+            </a>
+            <a class="text-decoration-none d-flex" href="https://github.com/kamilcinner">
+              <i class="icon-github-circled"></i>
+              <strong class="my-1">github.com/kamilcinner</strong>
+            </a>
+            <a class="text-decoration-none d-flex" href="https://www.instagram.com/artemka00010011">
+              <i class="icon-instagram"></i>
+              <strong class="my-1">artemka00010011</strong>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h1 class="h2 my-3">See also</h1>
+            <a class="text-decoration-none d-flex" href="https://www.instagram.com/wloczkowo/">
+              <i class="icon-instagram"></i>
+              <strong class="my-1">wloczkowo</strong>
+            </a>
+          </div>
+        </div>
+        <hr class="bg-scheduler">
+        <p class="text-center my-2 text-muted font-italic">The author of this site is Kamil Cinner</p>
       </div>
-      <p class="text-center text-muted mb-0 bg-scheduler">All rights reserved &copy; 2020 Thank you for visit!</p>
     </footer>
 
     <!-- Optional JavaScript -->

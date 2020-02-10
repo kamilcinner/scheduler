@@ -1,11 +1,3 @@
-.cs-scheduler {
-    background-color: #00a161 !important;
-    color: #424240 !important;
-}
-.cs-scheduler-dark {
-    background-color: #424240 !important;
-    color: #00a161 !important;
-}
 .form-control {
     border-color: #00a161 !important;
     color: white;
@@ -17,9 +9,4 @@
 }
 .btn:focus {
     box-shadow: 0 0 0 0.1rem #00a161;
-}
-
-.old-colors {
-    background-color: #00a161;
-    color: #00a161;
 }

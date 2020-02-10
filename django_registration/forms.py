@@ -1,13 +1,15 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
+from django.core.mail import EmailMessage
 
 
 class UserCreateModelForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-            'username'
+            'username',
+            'email'
         ]
         help_texts = {
             'username': 'Min 8 and max 20 characters, allowing: letters, digits and {@.+-_}.'
@@ -49,3 +51,11 @@ class UserCreateModelForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    # def send_registration_confirmation_email(self):
+    #     email = EmailMessage(
+    #         'Thank You for registration!',
+    #         'We are willing to spend some awesome time together :)',
+    #         'adminoffice@scheduler-kamilcinner.herokuapp.com',
+    #         ['']
+    #     )
