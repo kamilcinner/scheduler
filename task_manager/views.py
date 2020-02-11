@@ -106,6 +106,8 @@ def shoppinglist_update_view(request, pk):
             for form in formset:
                 if not form.has_changed():
                     continue
+                if form.cleaned_data['name'] == '':
+                    continue
                 item = ShoppingListItem()
                 item.s_list = s_list
                 item.name = form.cleaned_data['name']
