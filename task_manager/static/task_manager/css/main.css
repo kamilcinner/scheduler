@@ -33,17 +33,20 @@ button {
 button:focus {
     outline: none !important;
 }
-button:active {
-    outline: solid 2px white;
-}
-.navbar-toggler-icon {
-    color: white !important;
-}
 
 @media (max-width: 575px) {
     h1 {
         font-size: 30px;
     }
+}
+.navbar {
+    border-bottom: solid 1px #191d21;
+}
+textarea {
+    max-height: 150px;
+}
+.text-line-through {
+    text-decoration: line-through !important;
 }
 
 

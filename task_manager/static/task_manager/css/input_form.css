@@ -1,3 +1,8 @@
+.form-group {
+    max-width: 400px !important;
+    margin-left: auto;
+    margin-right: auto;
+}
 .form-control {
     border-color: #00a161 !important;
     color: white;
@@ -7,6 +12,18 @@
     color: white;
     box-shadow: 0 0 0 0.1rem #00a161;
 }
+.btn {
+    box-shadow: none;
+}
 .btn:focus {
+    color: #191d21 !important;
+    box-shadow: 0 0 0 0.1rem #00a161;
+}
+.btn:hover {
+    color: #191d21 !important;
+    box-shadow: 0 0 0 0.1rem #00a161;
+}
+.btn:active {
+    color: #191d21 !important;
     box-shadow: 0 0 0 0.1rem #00a161;
 }

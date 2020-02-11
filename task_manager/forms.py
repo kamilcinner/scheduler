@@ -17,3 +17,15 @@ class TaskCreateModelForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})
+
+
+class TaskUpdateModelForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = '__all__'
+        exclude = ['owner']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})

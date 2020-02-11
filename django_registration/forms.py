@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.mail import EmailMessage
 
+from scheduler import settings
+
 
 class UserCreateModelForm(forms.ModelForm):
     class Meta:
@@ -47,15 +49,17 @@ class UserCreateModelForm(forms.ModelForm):
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        user.set_password(self.cleaned_data['password1'])
         if commit:
+            self.send_registration_confirmation_email()
             user.save()
         return user
 
-    # def send_registration_confirmation_email(self):
-    #     email = EmailMessage(
-    #         'Thank You for registration!',
-    #         'We are willing to spend some awesome time together :)',
-    #         'adminoffice@scheduler-kamilcinner.herokuapp.com',
-    #         ['']
-    #     )
+    def send_registration_confirmation_email(self):
+        email = EmailMessage(
+            'Thank You for registration!',
+            'We are willing to spend some awesome time together :)',
+            settings.EMAIL_HOST_USER,
+            [self.cleaned_data.get('email')]
+        )
+        email.send(fail_silently=True)

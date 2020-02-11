@@ -1,0 +1,25 @@
+{% extends 'task_manager/base_generic.html' %}
+
+{% block content %}
+  <div class="jumbotron mb-3 p-2 bg-scheduler c-scheduler-dark">
+    <h1 class="display-4">{{ shoppinglist.name }}</h1>
+    {% if shoppinglist.shoppinglistitem_set.all.count >= 1 %}
+      <ul>
+        {% for item in shoppinglist.shoppinglistitem_set.all %}
+        <li><a class="c-scheduler-dark {% if item.status %}text-line-through{% endif %}" href="{% url 'task_manager:slist-item-mark-bought' item.pk %}"><p class="lead">{{ item }}</p></a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>There is no any item yet</p>
+    {% endif %}
+    <hr class="my-4">
+    <p><strong>Date added:</strong> {{ shoppinglist.date_added }}</p>
+    <div class="d-flex mb-2 w-100 justify-content-between">
+      <a class="btn bg-scheduler-dark c-scheduler btn-lg" href="{% url 'task_manager:inactive-yet' %}" role="button">Edit</a>
+    </div>
+    <div class="d-flex w-100 justify-content-between">
+      <a class="btn bg-scheduler-dark c-scheduler btn-lg" href="{% url 'task_manager:inactive-yet' %}" role="button">Mark done</a>
+      <a class="btn btn-danger btn-lg" href="{% url 'task_manager:inactive-yet' %}" role="button">Delete</a>
+    </div>
+  </div>
+{% endblock %}

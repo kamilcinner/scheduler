@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'wupnj_0$m(@1(l3ljeepfcs2ta=x=&
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', False)
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['localhost', '192.168.0.122', 'scheduler-kamilcinner.herokuapp.com']
 
@@ -128,7 +128,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'scheduler.kc@gmail.com'
+EMAIL_HOST_PASSWORD = '%t1UD@Z1uyU^B5dfB4jb!9i*t7g7T%'
+
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url

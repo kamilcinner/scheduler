@@ -31,12 +31,12 @@
             <small class="text-danger">{{ error }}</small>
           {% endfor %}
         </div>
-      <button type="submit" class="btn mb-3 bg-scheduler c-scheduler-dark">Login</button>
-      <input type="hidden" name="next" value="{{ next }}">
+        <div class="form-group">
+          <button type="submit" class="btn mb-3 bg-scheduler c-scheduler-dark">Login</button>
+          <input type="hidden" name="next" value="{{ next }}">
+          <p><a class="text-decoration-none text-muted" href="{% url 'password_reset' %}">Lost password?</a></p>
+        </div>
       </form>
-
-      {# Assumes you setup the password_reset view in your URLconf #}
-      <p><a class="text-decoration-none text-muted" href="{% url 'password_reset' %}">Lost password?</a></p>
     </div>
   </div>
 {% endblock %}
