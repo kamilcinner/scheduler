@@ -16,11 +16,11 @@
     box-shadow: none;
 }
 .btn:focus {
-    color: #191d21 !important;
+    /*color: #191d21 !important;*/
     box-shadow: 0 0 0 0.1rem #00a161;
 }
 .btn:hover {
-    color: #191d21 !important;
+    /*color: #191d21 !important;*/
     box-shadow: 0 0 0 0.1rem #00a161;
 }
 .btn:active {

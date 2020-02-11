@@ -17,5 +17,6 @@
     <p class="h3">That's all! Would You mind add another <a class="btn bg-scheduler c-scheduler-dark btn-sm" href="{% url 'task_manager:task-create' %}" role="button">Task</a> ?</p>
   {% else %}
     <p class="text-center">You haven't added any task yet</p>
+    <p class="h3">Would You mind add your first <a class="btn bg-scheduler c-scheduler-dark btn-sm" href="{% url 'task_manager:task-create' %}" role="button">Task</a> ?</p>
   {% endif %}
 {% endblock %}

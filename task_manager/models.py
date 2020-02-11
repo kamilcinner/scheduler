@@ -49,7 +49,7 @@ class ShoppingListItem(models.Model):
         ordering = ['status', 'name']
 
     s_list = models.ForeignKey(ShoppingList, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=100, verbose_name='Product name')
+    name = models.CharField(max_length=100, verbose_name='Product name', blank=True)
     status = models.BooleanField(default=False, verbose_name='Bought')
 
     def get_absolute_url(self):

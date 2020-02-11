@@ -15,6 +15,8 @@ urlpatterns = [
     path('shoppinglist/<int:pk>', views.ShoppingListDetailView.as_view(), name='slist-detail'),
     path('shoppinglistitem/<int:pk>', views.mark_slist_item_bought, name='slist-item-mark-bought'),
     path('shoppinglist/create/', views.ShoppingListCreateView.as_view(), name='slist-create'),
+    path('shoppinglist/<int:pk>/update/', views.shoppinglist_update_view, name='slist-update'),
+    path('shoppinglist/<int:pk>/delete/', views.ShoppingListDeleteView.as_view(), name='slist-delete'),
 
     path('inactive/', views.inactive_yet_view, name='inactive-yet')
 ]
