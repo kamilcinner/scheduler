@@ -144,9 +144,10 @@ def mark_slist_item_bought(request, pk):
     item.status = not item.status
     item.save()
 
-    context = {
-        'pk': item.s_list.pk,
-        'shoppinglist': item.s_list
-    }
+    # context = {
+    #     'pk': item.s_list.pk,
+    #     'shoppinglist': item.s_list
+    # }
 
-    return render(request, 'task_manager/shoppinglist_detail.html', context=context)
+    return HttpResponseRedirect(reverse('task_manager:slist-detail', args=[str(item.s_list.pk)]))
+    #return render(request, 'task_manager/shoppinglist_detail.html', context=context)
