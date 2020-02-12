@@ -37,6 +37,7 @@
               <a class="nav-link" href="{% url 'django_registration:user-create' %}">Register</a>
             {% else %}
               <a class="nav-link" href="{% url 'task_manager:task-list' %}">Tasks</a>
+              <a class="nav-link" href="{% url 'task_manager:slist-list' %}">Shopping Lists</a>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage tasks</a>
                 <div class="dropdown-menu" aria-labelledby="submenu">
@@ -48,11 +49,19 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage shopping lists</a>
+                <div class="dropdown-menu" aria-labelledby="submenu">
+                  <a class="dropdown-item" href="{% url 'task_manager:slist-create' %}">Create new</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'task_manager:inactive-yet' %}">Delete</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">About</a>
                 <div class="dropdown-menu" aria-labelledby="submenu">
-                  <a class="dropdown-item" href="{% url 'task_manager:inactive-yet' %}">Scheduler</a>
+                  <a class="dropdown-item" href="{% url 'task_manager:about' %}">Scheduler</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{% url 'task_manager:inactive-yet' %}">Other projects</a>
+                  <a class="dropdown-item" href="{% url 'task_manager:other-projects' %}">Other projects</a>
                 </div>
               </li>
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -79,7 +88,7 @@
             <h1 class="h2 my-3">Projects</h1>
             <a class="text-decoration-none d-flex" href="{% url 'task_manager:inactive-yet' %}">
               <i class=""></i>
-              <strong class="my-1">Scheduler</strong>
+              <strong class="my-1"><a href="{% url 'task_manager:about' %}">Scheduler</a></strong>
             </a>
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6">

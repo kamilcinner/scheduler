@@ -4,6 +4,8 @@ from task_manager import views
 app_name = 'task_manager'
 urlpatterns = [
     path('', views.index_view, name='index'),
+    path('about/', views.about_view, name='about'),
+    path('other/projects/', views.other_projects_view, name='other-projects'),
 
     path('tasks/', views.TaskListView.as_view(), name='task-list'),
     path('task/<int:pk>', views.TaskDetailView.as_view(), name='task-detail'),

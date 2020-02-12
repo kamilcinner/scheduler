@@ -16,8 +16,17 @@ from task_manager.models import Task, ShoppingList, ShoppingListItem
 def index_view(request):
     return render(request, 'task_manager/index.html', context={})
 
+
 def inactive_yet_view(request):
     return render(request, 'task_manager/inactive.html', context={})
+
+
+def about_view(request):
+    return render(request, 'task_manager/about.html', context={})
+
+
+def other_projects_view(request):
+    return render(request, 'task_manager/other_projects.html', context={})
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
