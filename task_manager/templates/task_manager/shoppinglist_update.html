@@ -21,28 +21,35 @@ function addForm() {
     counter += 1;
     el.setAttribute('value', counter);
     $('.delete-form-row').click(function(){
-        deleteForm(this)
+        $(this).closest('.form-group').remove();
+        var forms = $('.input-group');
+        $('#id_form-TOTAL_FORMS').val(forms.length);
+        for (var i = 0, formCount = forms.length; i < formCount; i++) {
+            $(forms.get(i)).find(':input').each(function () {
+                var regexp = new RegExp('form-\\d+');
+                if (this.name) this.name = this.name.replace(regexp, 'form-' + i);
+                if (this.id) this.id = this.id.replace(regexp, 'form-' + i)
+            });
+            $(forms.get(i)).find('span').html(i + 1);
+        }
     });
-}
-function deleteForm(el) {
-    $(el).closest('.form-group').remove();
-    var forms = $('.input-group');
-    $('#id_form-TOTAL_FORMS').val(forms.length);
-    for (var i = 0, formCount = forms.length; i < formCount; i++) {
-        $(forms.get(i)).find(':input').each(function () {
-            var regexp = new RegExp('form-\\d+');
-            if (el.name) el.name = el.name.replace(regexp, 'form-' + i);
-            if (el.id) el.id = el.id.replace(regexp, 'form-' + i)
-        });
-        $(forms.get(i)).find('span').html(i + 1);
-    }
 }
 $(document).ready(function(){
     $('.add-form-row').click(function(){
         addForm()
     });
     $('.delete-form-row').click(function(){
-        deleteForm(this)
+        $(this).closest('.form-group').remove();
+        var forms = $('.input-group');
+        $('#id_form-TOTAL_FORMS').val(forms.length);
+        for (var i = 0, formCount = forms.length; i < formCount; i++) {
+            $(forms.get(i)).find(':input').each(function () {
+                var regexp = new RegExp('form-\\d+');
+                if (this.name) this.name = this.name.replace(regexp, 'form-' + i);
+                if (this.id) this.id = this.id.replace(regexp, 'form-' + i)
+            });
+            $(forms.get(i)).find('span').html(i + 1);
+        }
     });
 });
 </script>{% endblock %}
