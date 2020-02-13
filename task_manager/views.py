@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from task_manager.forms import TaskCreateModelForm, TaskUpdateModelForm, ShoppingListCreateModelForm, \
+from task_manager.forms import TaskCreateModelForm, ShoppingListCreateModelForm, \
     ShoppingListItemCreateModelForm
 from task_manager.models import Task, ShoppingList, ShoppingListItem
 
@@ -71,7 +71,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
-    form_class = TaskUpdateModelForm
+    form_class = TaskCreateModelForm
 
     # Isn't this done by default?
     # def get_success_url(self):

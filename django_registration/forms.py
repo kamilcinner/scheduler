@@ -43,7 +43,6 @@ class UserCreateModelForm(forms.ModelForm):
             raise forms.ValidationError("Passwords don't match.")
         # Use django built in password validation
         validate_password(password2)
-
         return password2
 
     def save(self, commit=True):
