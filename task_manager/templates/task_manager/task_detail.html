@@ -9,7 +9,7 @@
     <hr class="my-4 {% if task.priority == 'n' %}bg-scheduler-dark-2{% elif task.priority == 'h' %}bg-scheduler-light{% else %}bg-scheduler-dark-3{% endif %}">
     <p class="{% if not task.status and task.is_overdue %}text-danger{% endif %}"><strong>Due date:</strong> {{ task.due_date|date:'d M Y H:i' }}</p>
     <div class="d-flex mb-2 w-100 justify-content-between">
-      <p><strong>Priority:</strong> <span class="font-weight-bold {% if task.priority == 'h' %}text-warning{% elif task.priority == 'l' %}text-body{% else %}text-muted{% endif %}">{{ task.get_priority_display }}</span></p>
+      <p><strong>Priority:</strong> <span class="{% if task.priority == 'h' %}font-weight-bold text-warning{% elif task.priority == 'l' %}text-muted{% else %}{% endif %}">{{ task.get_priority_display }}</span></p>
       <a class="btn {% if task.priority == 'n' %}bg-scheduler-dark-2{% else %}bg-scheduler-dark-3{% endif %} c-scheduler btn-lg" href="{% url 'task_manager:task-update' task.pk %}" role="button">Edit</a>
     </div>
     <div class="d-flex w-100 justify-content-between">

@@ -10,7 +10,7 @@
             <small class="{% if not task.status and task.is_overdue %}text-danger font-weight-bold{% endif %}">{{ task.due_date|date:'d M Y H:i' }}</small>
           </div>
           <p class="mb-1">{{ task.description }}</p>
-          <small class="font-weight-bold {% if task.priority == 'h' %}text-warning{% elif task.priority == 'l' %}text-body{% else %}text-muted{% endif %}">{{ task.get_priority_display }}</small>
+          <small class="{% if task.priority == 'h' %}font-weight-bold text-warning{% elif task.priority == 'l' %}text-muted{% else %}font-weight-bold{% endif %}">{{ task.get_priority_display }}</small>
           {% if not task.status and task.is_overdue %}<p class="my-0"><strong class="text-danger"> Overdue!</strong></p>{% endif %}
           {% if task.status %}<p class="my-0"><strong class="text-success"> Already done!</strong></p>{% endif %}
         </a>
