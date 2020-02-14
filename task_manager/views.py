@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import formset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -92,11 +92,16 @@ class ShoppingListListView(LoginRequiredMixin, generic.ListView):
         return ShoppingList.objects.filter(owner__username__exact=self.request.user.username)
 
 
-class ShoppingListDetailView(LoginRequiredMixin, generic.DetailView):
+class ShoppingListDetailView(generic.DetailView):
     model = ShoppingList
 
     def get_queryset(self):
-        return ShoppingList.objects.filter(owner__username__exact=self.request.user.username)
+        slist = get_object_or_404(ShoppingList, pk=self.kwargs['pk'])
+        if slist.is_shared:
+            return ShoppingList.objects.filter(id__exact=self.kwargs['pk'])
+        if self.request.user.is_authenticated:
+            return ShoppingList.objects.filter(owner__username__exact=self.request.user.username)
+        return ShoppingList.objects.none()
 
 
 class ShoppingListCreateView(LoginRequiredMixin, generic.CreateView):
@@ -159,19 +164,15 @@ class ShoppingListDeleteView(LoginRequiredMixin, generic.DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-@login_required
+# @login_required
 def mark_slist_item_bought(request, pk):
     item = get_object_or_404(ShoppingListItem, pk=pk)
-    item.status = not item.status
-    item.save()
-
-    # context = {
-    #     'pk': item.s_list.pk,
-    #     'shoppinglist': item.s_list
-    # }
-
-    return HttpResponseRedirect(reverse('task_manager:slist-detail', args=[str(item.s_list.pk)]))
-    #return render(request, 'task_manager/shoppinglist_detail.html', context=context)
+    if not item.s_list.is_shared and item.s_list.owner.username != request.user.username:
+        raise Http404
+    else:
+        item.status = not item.status
+        item.save()
+        return HttpResponseRedirect(reverse('task_manager:slist-detail', args=[str(item.s_list.pk)]))
 
 
 @login_required
@@ -181,3 +182,12 @@ def mark_task_done(request, pk):
     task.save()
 
     return HttpResponseRedirect(reverse('task_manager:task-detail', args=[str(task.pk)]))
+
+
+@login_required
+def share_slist(request, pk):
+    slist = get_object_or_404(ShoppingList, pk=pk)
+    slist.is_shared = not slist.is_shared
+    slist.save()
+
+    return HttpResponseRedirect(reverse('task_manager:slist-detail', args=[str(slist.pk)]))
