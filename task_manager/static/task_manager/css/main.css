@@ -1,5 +1,7 @@
 body {
-    background-color: #424240;
+    /*background-color: #424240;*/
+    /* Background pattern from Toptal Subtle Patterns */
+    background-image: url('../images/prism.png');
     color: white;
 }
 .dropdown-menu {
