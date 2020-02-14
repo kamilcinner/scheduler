@@ -1,6 +1,5 @@
-import datetime
-
 from django import forms
+from django.utils import timezone
 
 from task_manager.models import Task, ShoppingList, ShoppingListItem
 
@@ -29,14 +28,16 @@ class TaskCreateModelForm(forms.ModelForm):
         self.set_initial_due_date()
 
     def set_initial_due_date(self):
-        self.fields['year'].initial = self.instance.due_date.year
-        self.fields['month'].initial = self.instance.due_date.month
-        self.fields['day'].initial = self.instance.due_date.day
-        self.fields['hour'].initial = self.instance.due_date.hour + 1 #TODO: fix timezone
-        self.fields['minute'].initial = self.instance.due_date.minute
+        date = self.instance.due_date.astimezone(timezone.get_default_timezone()) #
+
+        self.fields['year'].initial = date.year
+        self.fields['month'].initial = date.month
+        self.fields['day'].initial = date.day
+        self.fields['hour'].initial = date.hour
+        self.fields['minute'].initial = date.minute
 
     def generate_year_choices(self):
-        current_year = datetime.date.today().year
+        current_year = timezone.datetime.today().year
         for year in range(current_year, current_year + 20):
             self.YEAR_CHOICES += (tuple((year, str(year))),)
 
@@ -125,7 +126,7 @@ class TaskCreateModelForm(forms.ModelForm):
         minute = int(self.cleaned_data['minute'])
 
         task = super().save(commit=False)
-        task.due_date = datetime.datetime(year=year, month=month, day=day, hour=hour, minute=minute)
+        task.due_date = timezone.datetime(year=year, month=month, day=day, hour=hour, minute=minute)
 
         if commit:
             task.save()

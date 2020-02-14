@@ -1,8 +1,7 @@
-import datetime
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
 
 
 class Task(models.Model):
@@ -11,7 +10,7 @@ class Task(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100, verbose_name='Task name')
-    due_date = models.DateTimeField(default=datetime.datetime.now())
+    due_date = models.DateTimeField(default=timezone.now())
     description = models.TextField(max_length=5000)
     status = models.BooleanField(default=False, verbose_name='Done')
 
@@ -22,6 +21,12 @@ class Task(models.Model):
     )
 
     priority = models.CharField(max_length=1, choices=TASK_PRIORITIES, default='n')
+
+    @property
+    def is_overdue(self):
+        if self.due_date < timezone.now():
+            return True
+        return False
 
     def get_absolute_url(self):
         return reverse('task_manager:task-detail', args=[str(self.id)])
@@ -36,7 +41,7 @@ class ShoppingList(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100, verbose_name='Shopping list name')
-    date_added = models.DateTimeField(default=datetime.datetime.now())
+    date_added = models.DateTimeField(default=timezone.now())
 
     def get_absolute_url(self):
         return reverse('task_manager:slist-detail', args=[str(self.id)])

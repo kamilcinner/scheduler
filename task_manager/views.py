@@ -1,11 +1,10 @@
-import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.utils import timezone
 from django.views import generic
 
 from task_manager.forms import TaskCreateModelForm, ShoppingListCreateModelForm, \
@@ -112,7 +111,7 @@ class ShoppingListCreateView(LoginRequiredMixin, generic.CreateView):
         Add user to form data before setting it as valid (so it is saved to model)
         """
         form.instance.owner = self.request.user
-        form.instance.date_added = datetime.datetime.now()
+        form.instance.date_added = timezone.now()
         return super().form_valid(form)
 
 

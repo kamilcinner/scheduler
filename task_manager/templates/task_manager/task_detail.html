@@ -1,14 +1,15 @@
 {% extends 'task_manager/base_generic.html' %}
 
 {% block content %}
-  <div class="jumbotron mb-3 p-2 bg-scheduler c-scheduler-dark">
+  <div class="jumbotron mb-3 p-2 {% if task.priority == 'h' %}bg-scheduler-dark-2 c-scheduler-white{% elif task.priority == 'n' %}bg-scheduler c-scheduler-dark{% else %}bg-scheduler-dark-3 c-scheduler-light{% endif %}">
     <h1 class="display-4">{{ task.name }}</h1>
+    {% if task.is_overdue %}<p class="my-0"><strong class="text-danger"> Overdue!</strong></p>{% endif %}
     <hr class="my-4">
     <p class="lead">{{ task.description }}</p>
     <hr class="my-4">
-    <p><strong>Due date:</strong> {{ task.due_date|date:'d M Y H:i' }}</p>
+    <p class="{% if task.is_overdue %}text-danger{% endif %}"><strong>Due date:</strong> {{ task.due_date|date:'d M Y H:i' }}</p>
     <div class="d-flex mb-2 w-100 justify-content-between">
-      <p><strong>Priority:</strong> <span class="{% if task.priority == 'h' %}text-warning{% elif task.priority == 'n' %}text-body{% else %}text-muted{% endif %}">{{ task.get_priority_display }}</span></p>
+      <p><strong>Priority:</strong> <span class="font-weight-bold {% if task.priority == 'h' %}text-warning{% elif task.priority == 'n' %}text-body{% else %}text-muted{% endif %}">{{ task.get_priority_display }}</span></p>
       <a class="btn bg-scheduler-dark c-scheduler btn-lg" href="{% url 'task_manager:task-update' task.pk %}" role="button">Edit</a>
     </div>
     <div class="d-flex w-100 justify-content-between">
