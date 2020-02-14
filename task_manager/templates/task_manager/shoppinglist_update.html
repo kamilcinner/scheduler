@@ -7,12 +7,12 @@ function addForm() {
     $('.fields-wrapper').append(
         '<div class="form-group">'+
         '<div class="input-group">'+
-        '<div class="input-group-prepend bg-scheduler">'+
+        '<div class="input-group-prepend bg-scheduler-dark-3">'+
         '<span class="input-group-text px-2 bg-scheduler-dark c-scheduler">' + (counter + 1) + '</span>'+
         '</div>'+
         '<input type="text" name="form-' + counter + '-name" maxlength="100" class="form-control bg-scheduler-dark" id="id_form-' + counter + '-name">'+
         '<input type="hidden" name="form-' + counter + '-status" counterue="False" id="id_form-' + counter + '-status">'+
-        '<div class="input-group-append bg-scheduler">'+
+        '<div class="input-group-append bg-scheduler-dark-3">'+
         '<button type="button" class="btn btn-danger px-3 delete-form-row">-</button>'+
         '</div>'+
         '</div>'+
@@ -55,7 +55,7 @@ $(document).ready(function(){
 </script>{% endblock %}
 
 {% block content %}
-  <div class="jumbotron mb-3 p-2 bg-scheduler c-scheduler-dark">
+  <div class="jumbotron mb-3 p-2 bg-scheduler-dark-3 c-scheduler-light">
     <h1 class="display-4">{{ shoppinglist.name }}</h1>
     <hr class="my-4">
     <form method="post">
@@ -65,11 +65,11 @@ $(document).ready(function(){
       {% for item in formset %}
         <div class="form-group">
           <div class="input-group">
-            <div class="input-group-prepend bg-scheduler">
+            <div class="input-group-prepend bg-scheduler-dark-3">
               <span class="input-group-text px-2 bg-scheduler-dark c-scheduler">{{ forloop.counter }}</span>
             </div>
             {{ item.name }}{{ item.status }}
-            <div class="input-group-append bg-scheduler">
+            <div class="input-group-append bg-scheduler-dark-3">
               <button type="button" class="btn btn-danger px-3 delete-form-row">-</button>
             </div>
           </div>
