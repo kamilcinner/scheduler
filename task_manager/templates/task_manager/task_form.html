@@ -1,5 +1,57 @@
 {% extends "task_manager/base_generic.html" %}
 
+{% block script %}<script>
+function is_leap_year() {
+    var year = parseInt($('#id_year').children(':selected').val());
+    if (year % 4 == 0) {
+        if (year % 100 == 0) {
+            if (year % 400 == 0) {
+                return  true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+    return false;
+}
+function validate_day_form(el) {
+    var month = parseInt($(el).children(':selected').val());
+    var day = document.getElementById('id_day');
+    var last_day = day.options[day.length-1].getAttribute('value');
+    var lesser_months = [2,4,6,9,11];
+    var good_last_day;
+
+    if (lesser_months.includes(month)) {
+        if (month == 2) {
+            if (is_leap_year())
+                good_last_day = 29;
+            else
+                good_last_day = 28;
+        } else good_last_day = 30;
+    } else good_last_day = 31;
+
+    while (last_day > good_last_day) {
+        day.remove(last_day-1);
+        last_day--;
+    }
+    while (last_day < good_last_day) {
+        last_day++;
+        day.innerHTML += '<option value="' + last_day + '">' + last_day + '</option>';
+    }
+}
+$('#id_month').change(function() {
+    validate_day_form(this);
+});
+$('#id_year').change(function() {
+    validate_day_form($('#id_month'));
+});
+$(document).ready(function(){
+    var el = $('#id_month');
+    validate_day_form(el)
+});
+</script>{% endblock %}
+
 {% block content %}
   <form action="" method="post">
     {% csrf_token %}
@@ -35,82 +87,51 @@
           {{ form.year.label_tag }}
           {{ form.year }}
           <small class="text-muted">{{ form.year.help_text }}</small>
-          {% for error in form.year.errors %}
-            <br><small class="text-danger">{{ error }}</small>
-          {% endfor %}
         </div>
         <div class="col-5">
           {{ form.month.label_tag }}
           {{ form.month }}
           <small class="text-muted">{{ form.month.help_text }}</small>
-          {% for error in form.month.errors %}
-            <br><small class="text-danger">{{ error }}</small>
-          {% endfor %}
         </div>
         <div class="col-3">
           {{ form.day.label_tag }}
           {{ form.day }}
           <small class="text-muted">{{ form.day.help_text }}</small>
-          {% for error in form.day.errors %}
-            <br><small class="text-danger">{{ error }}</small>
-          {% endfor %}
         </div>
       </div>
-      <div class="form-group">
-        <hr class="bg-scheduler-dark-2">
-        <div class="form-row">
-          <div class="col">
-            {{ form.hour.label_tag }}
-            {{ form.hour }}
-            <small class="text-muted">{{ form.hour.help_text }}</small>
-            {% for error in form.hour.errors %}
-              <br><small class="text-danger">{{ error }}</small>
-            {% endfor %}
-          </div>
-          <div class="col">
-            {{ form.minute.label_tag }}
-            {{ form.minute }}
-            <small class="text-muted">{{ form.minute.help_text }}</small>
-            {% for error in form.minute.errors %}
-              <br><small class="text-danger">{{ error }}</small>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
+      {% for error in form.year.errors %}
+        <br><small class="text-danger">{{ error }}</small>
+      {% endfor %}
+      {% for error in form.month.errors %}
+        <br><small class="text-danger">{{ error }}</small>
+      {% endfor %}
+      {% for error in form.day.errors %}
+        <br><small class="text-danger">{{ error }}</small>
+      {% endfor %}
     </div>
-{#    <div class="form-group">#}
-{#      {{ form.name.label_tag }}#}
-{#      <input class="form-control bg-scheduler-dark" id="{{ form.name.if_for_label }}" type="text" name="{{ form.name.html_name }}" maxlength="100" required>#}
-{#      {% for error in form.name.errors %}#}
-{#        <small class="text-danger">{{ form.name.errors }}</small>#}
-{#      {% endfor %}#}
-{#    </div>#}
-{#    <div class="form-group">#}
-{#      {{ form.description.label_tag }}#}
-{#      <textarea class="form-control bg-scheduler-dark" id="{{ form.description.if_for_label }}" name="{{ form.description.html_name }}" maxlength="5000" cols="40" rows="10" required></textarea>#}
-{#      {% for error in form.description.errors %}#}
-{#        <small class="text-danger">{{ form.description.errors }}</small>#}
-{#      {% endfor %}#}
-{#    </div>#}
-{#    <div class="form-group">#}
-{#      {{ form.priority.label_tag }}#}
-{#      <input class="form-control bg-scheduler-dark" id="{{ form.priority.if_for_label }}" type="text" name="{{ form.priority.html_name }}" maxlength="100" required>#}
-{#      {% for error in form.name.errors %}#}
-{#        <small class="text-danger">{{ form.name.errors }}</small>#}
-{#      {% endfor %}#}
-{#    </div>#}
-{#    {% for field in form %}#}
-{#      <div class="form-group">#}
-{#        {{ field.label_tag }}#}
-{#        {{ field }}#}
-{#        <small class="text-muted">{{ field.help_text }}</small>#}
-{#        {% for error in field.errors %}#}
-{#          <br><small class="text-danger">{{ error }}</small>#}
-{#        {% endfor %}#}
-{#      </div>#}
-{#    {% endfor %}#}
     <div class="form-group">
-      <button type="submit" class="btn mb-3 bg-scheduler c-scheduler-dark">Save</button>
+      <hr class="bg-scheduler-dark-2">
+      <div class="form-row">
+        <div class="col-3">
+          {{ form.hour.label_tag }}
+          {{ form.hour }}
+          <small class="text-muted">{{ form.hour.help_text }}</small>
+        </div>
+        <div class="col-3">
+          {{ form.minute.label_tag }}
+          {{ form.minute }}
+          <small class="text-muted">{{ form.minute.help_text }}</small>
+        </div>
+      </div>
+      {% for error in form.hour.errors %}
+        <br><small class="text-danger">{{ error }}</small>
+      {% endfor %}
+      {% for error in form.minute.errors %}
+        <br><small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn my-3 bg-scheduler c-scheduler-dark">Save</button>
     </div>
   </form>
 {% endblock %}

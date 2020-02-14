@@ -13,6 +13,7 @@ class Task(models.Model):
     name = models.CharField(max_length=100, verbose_name='Task name')
     due_date = models.DateTimeField(default=datetime.datetime.now())
     description = models.TextField(max_length=5000)
+    status = models.BooleanField(default=False, verbose_name='Done')
 
     TASK_PRIORITIES = (
         ('h', 'High'),
@@ -26,7 +27,7 @@ class Task(models.Model):
         return reverse('task_manager:task-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.name} ({self.due_date.strftime("%Y-%m-%d %H:%M:%S")})'
+        return f'{self.name} ({self.due_date.strftime("%d %b %Y %H:%M")})'
 
 
 class ShoppingList(models.Model):
@@ -41,7 +42,7 @@ class ShoppingList(models.Model):
         return reverse('task_manager:slist-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.name} ({self.date_added.strftime("%Y-%m-%d %H:%M:%S")})'
+        return f'{self.name} ({self.date_added.strftime("%d %b %Y %H:%M")})'
 
 
 class ShoppingListItem(models.Model):

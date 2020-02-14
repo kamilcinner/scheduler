@@ -14,7 +14,7 @@
       <p>There is no any item yet</p>
     {% endif %}
     <hr class="my-4">
-    <p><strong>Date added:</strong> {{ shoppinglist.date_added }}</p>
+    <p><strong>Date added:</strong> {{ shoppinglist.date_added|date:'d M Y H:i' }}</p>
     <div class="d-flex w-100 justify-content-between">
       <a class="btn bg-scheduler-dark c-scheduler btn-lg" href="{% url 'task_manager:slist-update' shoppinglist.pk %}" role="button">Edit</a>
       <a class="btn btn-danger btn-lg" href="{% url 'task_manager:slist-delete' shoppinglist.pk %}" role="button">Delete</a>

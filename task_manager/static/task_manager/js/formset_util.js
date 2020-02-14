@@ -1,3 +1,4 @@
+
 // function addForm() {
 //     var el = document.getElementById('id_form-TOTAL_FORMS');
 //     var counter = parseInt(el.getAttribute('value'));

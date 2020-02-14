@@ -16,6 +16,14 @@ class TaskCreateModelForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.generate_year_choices()
+        self.fields['year'] = forms.ChoiceField(choices=self.YEAR_CHOICES)
+        self.generate_day_choices()
+        self.fields['day'] = forms.ChoiceField(choices=self.DAY_CHOICES)
+        self.generate_hour_choices()
+        self.fields['hour'] = forms.ChoiceField(choices=self.HOUR_CHOICES)
+        self.generate_minute_choices()
+        self.fields['minute'] = forms.ChoiceField(choices=self.MINUTE_CHOICES)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})
         self.set_initial_due_date()
@@ -27,7 +35,37 @@ class TaskCreateModelForm(forms.ModelForm):
         self.fields['hour'].initial = self.instance.due_date.hour + 1 #TODO: fix timezone
         self.fields['minute'].initial = self.instance.due_date.minute
 
-    year = forms.IntegerField(min_value=datetime.date.today().year)
+    def generate_year_choices(self):
+        current_year = datetime.date.today().year
+        for year in range(current_year, current_year + 20):
+            self.YEAR_CHOICES += (tuple((year, str(year))),)
+
+    def generate_day_choices(self):
+        for day in range(1, 32):
+            if day < 10:
+                content = f'0{day}'
+            else:
+                content = str(day)
+            self.DAY_CHOICES += (tuple((day, content)),)
+
+    def generate_hour_choices(self):
+        for hour in range(0, 24):
+            if hour < 10:
+                content = f'0{hour}'
+            else:
+                content = str(hour)
+            self.HOUR_CHOICES += (tuple((hour, content)),)
+
+    def generate_minute_choices(self):
+        for minute in range(0, 60):
+            if minute < 10:
+                content = f'0{minute}'
+            else:
+                content = str(minute)
+            self.MINUTE_CHOICES += (tuple((minute, content)),)
+
+    YEAR_CHOICES = ()
+    year = forms.ChoiceField(choices=YEAR_CHOICES)
 
     MONTH_CHOICES = (
         (1, 'january'),
@@ -45,102 +83,12 @@ class TaskCreateModelForm(forms.ModelForm):
     )
 
     month = forms.ChoiceField(choices=MONTH_CHOICES)
+    DAY_CHOICES = ()
     day = forms.IntegerField(min_value=1)
-
-    HOUR_CHOICES = (
-        (0, '00'),
-        (1, '01'),
-        (2, '02'),
-        (3, '03'),
-        (4, '04'),
-        (5, '05'),
-        (6, '06'),
-        (7, '07'),
-        (8, '08'),
-        (9, '09'),
-        (10, '10'),
-        (11, '11'),
-        (12, '12'),
-        (13, '13'),
-        (14, '14'),
-        (15, '15'),
-        (16, '16'),
-        (17, '17'),
-        (18, '18'),
-        (19, '19'),
-        (20, '20'),
-        (21, '21'),
-        (22, '22'),
-        (23, '23'),
-    )
-
+    HOUR_CHOICES = ()
     hour = forms.ChoiceField(choices=HOUR_CHOICES)
-
-    MINUTE_CHOICES = (
-        (0, '00'),
-        (1, '01'),
-        (2, '02'),
-        (3, '03'),
-        (4, '04'),
-        (5, '05'),
-        (6, '06'),
-        (7, '07'),
-        (8, '08'),
-        (9, '09'),
-        (10, '10'),
-        (11, '11'),
-        (12, '12'),
-        (13, '13'),
-        (14, '14'),
-        (15, '15'),
-        (16, '16'),
-        (17, '17'),
-        (18, '18'),
-        (19, '19'),
-        (20, '20'),
-        (21, '21'),
-        (22, '22'),
-        (23, '23'),
-        (24, '24'),
-        (25, '25'),
-        (26, '26'),
-        (27, '27'),
-        (28, '28'),
-        (29, '29'),
-        (30, '30'),
-        (31, '31'),
-        (32, '32'),
-        (33, '33'),
-        (34, '34'),
-        (35, '35'),
-        (36, '36'),
-        (37, '37'),
-        (38, '38'),
-        (39, '39'),
-        (40, '40'),
-        (41, '41'),
-        (42, '42'),
-        (43, '43'),
-        (44, '44'),
-        (45, '45'),
-        (46, '46'),
-        (47, '47'),
-        (48, '48'),
-        (49, '49'),
-        (50, '50'),
-        (51, '51'),
-        (52, '52'),
-        (53, '53'),
-        (54, '54'),
-        (55, '55'),
-        (56, '56'),
-        (57, '57'),
-        (58, '58'),
-        (59, '59'),
-    )
-
+    MINUTE_CHOICES = ()
     minute = forms.ChoiceField(choices=MINUTE_CHOICES)
-
 
     def is_leap_year(self, year):
         if year % 4 == 0:
@@ -152,9 +100,9 @@ class TaskCreateModelForm(forms.ModelForm):
         return False
 
     def clean_day(self):
-        year = self.cleaned_data['year']
+        year = int(self.cleaned_data['year'])
         month = int(self.cleaned_data['month'])
-        day = self.cleaned_data['day']
+        day = int(self.cleaned_data['day'])
         lesser_months = {2, 4, 6, 9, 11}
         month_str = self.MONTH_CHOICES[month - 1][1].capitalize()
 
@@ -170,9 +118,9 @@ class TaskCreateModelForm(forms.ModelForm):
         return day
 
     def save(self, commit=True):
-        year = self.cleaned_data['year']
+        year = int(self.cleaned_data['year'])
         month = int(self.cleaned_data['month'])
-        day = self.cleaned_data['day']
+        day = int(self.cleaned_data['day'])
         hour = int(self.cleaned_data['hour'])
         minute = int(self.cleaned_data['minute'])
 
@@ -182,18 +130,6 @@ class TaskCreateModelForm(forms.ModelForm):
         if commit:
             task.save()
         return task
-
-
-# class TaskUpdateModelForm(forms.ModelForm):
-#     class Meta:
-#         model = Task
-#         fields = '__all__'
-#         exclude = ['owner']
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         for field in self.fields:
-#             self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})
 
 
 class ShoppingListCreateModelForm(forms.ModelForm):

@@ -2,9 +2,9 @@
 
 {% block content %}
   <h1>Delete Shopping List</h1>
-  <p>Are you sure you want to delete the shopping list: {{ task }}?</p>
+  <p>Are you sure you want to delete the shopping list: <strong class="text-success">{{ shoppinglist }}</strong>?</p>
   <form method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes, delete.">
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
   </form>
 {% endblock %}
