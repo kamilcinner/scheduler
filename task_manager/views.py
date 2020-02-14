@@ -14,7 +14,7 @@ from task_manager.models import Task, ShoppingList, ShoppingListItem
 
 def index_view(request):
     if request.user.is_authenticated:
-        num_tasks = Task.objects.filter(owner__username__exact=request.user.username).count()
+        num_tasks = Task.objects.filter(owner__username__exact=request.user.username, status__exact=False).count()
         num_active_slist = 0
         for slist in ShoppingList.objects.filter(owner__username__exact=request.user.username):
             for item in slist.shoppinglistitem_set.all():
