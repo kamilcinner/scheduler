@@ -24,7 +24,7 @@ class TaskCreateModelForm(forms.ModelForm):
         self.generate_minute_choices()
         self.fields['minute'] = forms.ChoiceField(choices=self.MINUTE_CHOICES)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})
+            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark-3'})
         self.set_initial_due_date()
 
     def set_initial_due_date(self):
@@ -141,7 +141,7 @@ class ShoppingListCreateModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})
+            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark-3'})
 
 
 class ShoppingListItemCreateModelForm(forms.ModelForm):
@@ -151,5 +151,5 @@ class ShoppingListItemCreateModelForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})
+        self.fields['name'].widget.attrs.update({'class': 'form-control bg-scheduler-dark-3'})
         self.fields['status'].widget = forms.HiddenInput()

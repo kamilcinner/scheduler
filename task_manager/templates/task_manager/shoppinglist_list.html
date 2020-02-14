@@ -4,13 +4,13 @@
   {% if shoppinglist_list %}
     <div class="list-group">
       {% for slist in shoppinglist_list %}
-        <a class="list-group-item mb-3 bg-scheduler-dark-3 c-scheduler-light list-group-item-action" href="{{ slist.get_absolute_url }}">
+        <a class="list-group-item mb-3 bg-scheduler-dark-2 c-scheduler-white list-group-item-action" href="{{ slist.get_absolute_url }}">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{ slist.name }}</h5>
             <small>{{ slist.date_added|date:'d M Y H:i' }}</small>
           </div>
           {% if not slist.shoppinglistitem_set.first.status %}
-            <small class="mb-0 text-muted">
+            <small class="mb-0 text-secondary">
               {% for item in slist.shoppinglistitem_set.all %}
                 {% if not item.status %}
                   {{ item.name }},
@@ -18,7 +18,7 @@
               {% endfor %}
             </small>
           {% else %}
-            <p class="mb-0 text-body">Nothing left to buy</p>
+            <p class="mb-0 text-secondary">Nothing left to buy</p>
           {% endif %}
 
         </a>

@@ -1,22 +1,22 @@
 {% extends 'task_manager/base_generic.html' %}
 
 {% block content %}
-  <div class="jumbotron mb-3 p-2 bg-scheduler-dark-3 c-scheduler-light">
+  <div class="jumbotron mb-3 p-2 bg-scheduler-dark-2 c-scheduler-white">
     <h1 class="display-4">{{ shoppinglist.name }}</h1>
-    <hr class="my-4">
+    <hr class="my-4 bg-scheduler-light">
     {% if shoppinglist.shoppinglistitem_set.all.count >= 1 %}
       <ul>
         {% for item in shoppinglist.shoppinglistitem_set.all %}
-        <li><a class="c-scheduler-light {% if item.status %}text-line-through{% endif %}" href="{% url 'task_manager:slist-item-mark-bought' item.pk %}"><p class="lead">{{ item }}</p></a></li>
+        <li><a class="c-scheduler-white {% if item.status %}text-line-through{% endif %}" href="{% url 'task_manager:slist-item-mark-bought' item.pk %}"><p class="lead">{{ item }}</p></a></li>
         {% endfor %}
       </ul>
     {% else %}
-      <p>There is no any item yet</p>
+      <p class="text-muted">There is no any item yet</p>
     {% endif %}
-    <hr class="my-4">
+    <hr class="my-4 bg-scheduler-light">
     <p><strong>Date added:</strong> {{ shoppinglist.date_added|date:'d M Y H:i' }}</p>
     <div class="d-flex w-100 justify-content-between">
-      <a class="btn bg-scheduler-dark c-scheduler btn-lg" href="{% url 'task_manager:slist-update' shoppinglist.pk %}" role="button">Edit</a>
+      <a class="btn bg-scheduler-dark-3 c-scheduler btn-lg" href="{% url 'task_manager:slist-update' shoppinglist.pk %}" role="button">Edit</a>
       <a class="btn btn-danger btn-lg" href="{% url 'task_manager:slist-delete' shoppinglist.pk %}" role="button">Delete</a>
     </div>
   </div>
