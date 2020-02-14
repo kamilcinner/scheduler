@@ -4,14 +4,15 @@
   {% if task_list %}
     <div class="list-group">
       {% for task in task_list %}
-        <a class="list-group-item mb-3 list-group-item-action {% if task.priority == 'h' %}bg-scheduler-dark-2 c-scheduler-white{% elif task.priority == 'n' %}bg-scheduler c-scheduler-dark{% else %}bg-scheduler-dark-3 c-scheduler-light{% endif %}" href="{{ task.get_absolute_url }}">
+        <a class="list-group-item mb-3 list-group-item-action {% if task.priority == 'h' %}bg-scheduler-dark-2 c-scheduler-white{% elif task.priority == 'l' %}bg-scheduler-light c-scheduler-dark{% else %}bg-scheduler-dark-3 c-scheduler-light{% endif %}" href="{{ task.get_absolute_url }}">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{ task.name }}</h5>
-            <small class="{% if task.is_overdue %}text-danger font-weight-bold{% endif %}">{{ task.due_date|date:'d M Y H:i' }}</small>
+            <small class="{% if not task.status and task.is_overdue %}text-danger font-weight-bold{% endif %}">{{ task.due_date|date:'d M Y H:i' }}</small>
           </div>
           <p class="mb-1">{{ task.description }}</p>
-          <small class="font-weight-bold {% if task.priority == 'h' %}text-warning{% elif task.priority == 'n' %}text-body{% else %}text-muted{% endif %}">{{ task.get_priority_display }}</small>
-          {% if task.is_overdue %}<p class="my-0"><strong class="text-danger"> Overdue!</strong></p>{% endif %}
+          <small class="font-weight-bold {% if task.priority == 'h' %}text-warning{% elif task.priority == 'l' %}text-body{% else %}text-muted{% endif %}">{{ task.get_priority_display }}</small>
+          {% if not task.status and task.is_overdue %}<p class="my-0"><strong class="text-danger"> Overdue!</strong></p>{% endif %}
+          {% if task.status %}<p class="my-0"><strong class="text-success"> Already done!</strong></p>{% endif %}
         </a>
       {% endfor %}
     </div>

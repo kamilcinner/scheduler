@@ -28,7 +28,7 @@ class TaskCreateModelForm(forms.ModelForm):
         self.set_initial_due_date()
 
     def set_initial_due_date(self):
-        date = self.instance.due_date.astimezone(timezone.get_default_timezone()) #
+        date = self.instance.due_date.astimezone(timezone.get_default_timezone())
 
         self.fields['year'].initial = date.year
         self.fields['month'].initial = date.month

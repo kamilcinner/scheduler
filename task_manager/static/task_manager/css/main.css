@@ -56,6 +56,9 @@ textarea {
 .bg-scheduler-dark {
     background-color: #424240 !important;
 }
+.bg-scheduler-light {
+    background-color: #adadad !important;
+}
 .c-scheduler {
     color: #00a161 !important;
 }

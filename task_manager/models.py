@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class Task(models.Model):
     class Meta:
-        ordering = ['due_date']
+        ordering = ['status', 'due_date', 'priority']
 
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100, verbose_name='Task name')

@@ -172,3 +172,12 @@ def mark_slist_item_bought(request, pk):
 
     return HttpResponseRedirect(reverse('task_manager:slist-detail', args=[str(item.s_list.pk)]))
     #return render(request, 'task_manager/shoppinglist_detail.html', context=context)
+
+
+@login_required
+def mark_task_done(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.status = not task.status
+    task.save()
+
+    return HttpResponseRedirect(reverse('task_manager:task-detail', args=[str(task.pk)]))
