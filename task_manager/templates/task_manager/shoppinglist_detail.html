@@ -3,6 +3,7 @@
 {% block content %}
   <div class="jumbotron mb-3 p-2 bg-scheduler-dark-2 c-scheduler-white">
     <h1 class="display-4">{{ shoppinglist.name }}</h1>
+    {% if shoppinglist.is_shared %}<p class="ml-1 font-weight-light my-0 text-success">Shared</p>{% endif %}
     <hr class="my-4 bg-scheduler-light">
     {% if shoppinglist.shoppinglistitem_set.all.count >= 1 %}
       <ul>

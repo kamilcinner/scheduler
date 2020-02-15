@@ -11,6 +11,7 @@
           </div>
           <p class="mb-1">{{ task.description }}</p>
           <small class="{% if task.priority == 'h' %}font-weight-bold text-warning{% elif task.priority == 'l' %}text-muted{% else %}font-weight-bold{% endif %}">{{ task.get_priority_display }}</small>
+          {% if task.is_shared %}<p class="font-weight-light my-0 text-success">Shared</p>{% endif %}
           {% if not task.status and task.is_overdue %}<p class="my-0"><strong class="text-danger"> Overdue!</strong></p>{% endif %}
           {% if task.status %}<p class="my-0"><strong class="text-success"> Already done!</strong></p>{% endif %}
         </a>

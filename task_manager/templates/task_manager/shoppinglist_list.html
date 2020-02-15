@@ -20,7 +20,7 @@
           {% else %}
             <p class="mb-0 text-secondary">Nothing left to buy</p>
           {% endif %}
-
+          {% if slist.is_shared %}<p class="font-weight-light my-0 text-success">Shared</p>{% endif %}
         </a>
       {% endfor %}
     </div>
