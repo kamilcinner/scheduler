@@ -232,13 +232,3 @@ def share_task(request, pk):
     task.save()
 
     return HttpResponseRedirect(reverse('task_manager:task-detail', args=[str(task.pk)]))
-
-
-# HTTP Error 400
-def bad_request(request, exception):
-    render(request, 'task_manager/400.html',status=400)
-
-
-# HTTP Error 404
-def page_not_found(request, exception):
-    render(request, 'task_manager/404.html', status=404)
