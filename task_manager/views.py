@@ -82,7 +82,7 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
         if task.owner.username != request.user.username:
             raise Http404
         else:
-            super().get(request, *args, **kwargs)
+            return super().get(request, *args, **kwargs)
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -94,7 +94,7 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
         if task.owner.username != request.user.username:
             raise Http404
         else:
-            super().get(request, *args, **kwargs)
+            return super().get(request, *args, **kwargs)
 
 
 class ShoppingListListView(LoginRequiredMixin, generic.ListView):
@@ -179,7 +179,7 @@ class ShoppingListDeleteView(LoginRequiredMixin, generic.DeleteView):
         if slist.owner.username != request.user.username:
             raise Http404
         else:
-            super().get(request, *args, **kwargs)
+            return super().get(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         obj = get_object_or_404(self.model, pk=kwargs['pk'])
