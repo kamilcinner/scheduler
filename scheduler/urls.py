@@ -27,3 +27,9 @@ urlpatterns = [
     path('scheduler/', include('task_manager.urls')),
     path('', RedirectView.as_view(url='scheduler/', permanent=True)),
 ]
+
+
+handler400 = 'task_manager.views.bad_request'
+# handler403 = 'task_manager.views.permission_denied'
+handler404 = 'task_manager.views.page_not_found'
+# handler500 = 'task_manager.views.server_error'
