@@ -53,7 +53,12 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
 
     def get_queryset(self):
-        return Task.objects.filter(owner__username__exact=self.request.user.username)
+        task = get_object_or_404(Task, pk=self.kwargs['pk'])
+        if task.is_shared:
+            return Task.objects.filter(id__exact=self.kwargs['pk'])
+        if self.request.user.is_authenticated:
+            return Task.objects.filter(owner__username__exact=self.request.user.username)
+        return Task.objects.none()
 
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
@@ -72,14 +77,24 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     form_class = TaskCreateModelForm
 
-    # Isn't this done by default?
-    # def get_success_url(self):
-    #     return reverse_lazy('task_manager:task-detail', args=[str(self.kwargs['pk'])])
+    def get(self, request, *args, **kwargs):
+        task = get_object_or_404(Task, pk=self.kwargs['pk'])
+        if task.owner.username != request.user.username:
+            raise Http404
+        else:
+            super().get(request, *args, **kwargs)
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy('task_manager:task-list')
+
+    def get(self, request, *args, **kwargs):
+        task = get_object_or_404(Task, pk=self.kwargs['pk'])
+        if task.owner.username != request.user.username:
+            raise Http404
+        else:
+            super().get(request, *args, **kwargs)
 
 
 class ShoppingListListView(LoginRequiredMixin, generic.ListView):
@@ -123,6 +138,8 @@ class ShoppingListCreateView(LoginRequiredMixin, generic.CreateView):
 @login_required
 def shoppinglist_update_view(request, pk):
     s_list = get_object_or_404(ShoppingList, pk=pk)
+    if s_list.owner.username != request.user.username:
+        raise Http404
     ShoppingListItemFormSet = formset_factory(ShoppingListItemCreateModelForm, extra=1, max_num=50, validate_max=True)
     if request.method == 'POST':
         formset = ShoppingListItemFormSet(request.POST)
@@ -157,6 +174,13 @@ class ShoppingListDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = ShoppingList
     success_url = reverse_lazy('task_manager:slist-list')
 
+    def get(self, request, *args, **kwargs):
+        slist = get_object_or_404(ShoppingList, pk=self.kwargs['pk'])
+        if slist.owner.username != request.user.username:
+            raise Http404
+        else:
+            super().get(request, *args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         obj = get_object_or_404(self.model, pk=kwargs['pk'])
         for item in obj.shoppinglistitem_set.all():
@@ -164,7 +188,6 @@ class ShoppingListDeleteView(LoginRequiredMixin, generic.DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-# @login_required
 def mark_slist_item_bought(request, pk):
     item = get_object_or_404(ShoppingListItem, pk=pk)
     if not item.s_list.is_shared and item.s_list.owner.username != request.user.username:
@@ -178,6 +201,9 @@ def mark_slist_item_bought(request, pk):
 @login_required
 def mark_task_done(request, pk):
     task = get_object_or_404(Task, pk=pk)
+    if task.owner.username != request.user.username:
+        raise Http404
+
     task.status = not task.status
     task.save()
 
@@ -187,7 +213,22 @@ def mark_task_done(request, pk):
 @login_required
 def share_slist(request, pk):
     slist = get_object_or_404(ShoppingList, pk=pk)
+    if slist.owner.username != request.user.username:
+        raise Http404
+
     slist.is_shared = not slist.is_shared
     slist.save()
 
     return HttpResponseRedirect(reverse('task_manager:slist-detail', args=[str(slist.pk)]))
+
+
+@login_required
+def share_task(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if task.owner.username != request.user.username:
+        raise Http404
+
+    task.is_shared = not task.is_shared
+    task.save()
+
+    return HttpResponseRedirect(reverse('task_manager:task-detail', args=[str(task.pk)]))
