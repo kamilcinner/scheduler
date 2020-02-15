@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 
+from task_manager.utils import set_default_datetime
+
 
 class Task(models.Model):
     class Meta:
@@ -13,7 +15,7 @@ class Task(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100, verbose_name='Task name')
-    due_date = models.DateTimeField(default=timezone.now())
+    due_date = models.DateTimeField(default=set_default_datetime())
     description = models.TextField(max_length=5000)
     status = models.BooleanField(default=False, verbose_name='Done')
     is_shared = models.BooleanField(default=False)

@@ -4,15 +4,16 @@
   <div class="jumbotron mb-3 p-2 bg-scheduler-dark-2 c-scheduler-white">
     <h1 class="display-4">{{ shoppinglist.name }}</h1>
     {% if shoppinglist.is_shared %}<p class="ml-1 font-weight-light my-0 text-success">Shared</p>{% endif %}
-    <hr class="my-4 bg-scheduler-light">
+    <hr class="mt-4 mb-0 bg-scheduler-light">
     {% if shoppinglist.shoppinglistitem_set.all.count >= 1 %}
+      <p class="my-0 text-right"><small class="font-weight-light text-muted">Click on item to mark bought / not bought</small></p>
       <ul>
         {% for item in shoppinglist.shoppinglistitem_set.all %}
-        <li><a class="c-scheduler-white {% if item.status %}text-line-through{% endif %}" href="{% url 'task_manager:slist-item-mark-bought' item.pk %}"><p class="lead">{{ item }}</p></a></li>
+        <li class="{% if item.status %}text-muted{% endif %}"><a class="{% if item.status %}text-line-through text-muted{% else %}c-scheduler-white{% endif %}" href="{% url 'task_manager:slist-item-mark-bought' item.pk %}"><p class="lead">{{ item.name }}</p></a></li>
         {% endfor %}
       </ul>
     {% else %}
-      <p class="text-muted">There is no any item yet</p>
+      <p class="mt-4 text-muted">There is no any item yet</p>
     {% endif %}
     <hr class="my-4 bg-scheduler-light">
     <p><strong>Date added:</strong> {{ shoppinglist.date_added|date:'d M Y H:i' }}</p>

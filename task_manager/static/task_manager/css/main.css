@@ -52,6 +52,9 @@ textarea {
 .text-line-through {
     text-decoration: line-through !important;
 }
+.text-line-through a {
+    color: black !important;
+}
 
 
 .bg-scheduler {
