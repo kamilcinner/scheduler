@@ -5,6 +5,7 @@
     <h1 class="display-4">{{ task.name }}</h1>
     {% if task.is_shared %}<p class="font-weight-light my-0 text-success">Shared</p>{% endif %}
     {% if not task.status and task.is_overdue %}<p class="my-0"><strong class="text-danger"> Overdue!</strong></p>{% endif %}
+    {% if task.status %}<p class="my-0"><strong class="text-success"> Already done!</strong></p>{% endif %}
     <hr class="my-4 {% if task.priority == 'n' %}bg-scheduler-dark-2{% elif task.priority == 'h' %}bg-scheduler-light{% else %}bg-scheduler-dark-3{% endif %}">
     <p class="lead">{{ task.description }}</p>
     <hr class="my-4 {% if task.priority == 'n' %}bg-scheduler-dark-2{% elif task.priority == 'h' %}bg-scheduler-light{% else %}bg-scheduler-dark-3{% endif %}">
