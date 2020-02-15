@@ -16,7 +16,7 @@
       <p class="lead mt-4 text-muted">There is no any item yet</p>
     {% endif %}
     <hr class="my-4 bg-scheduler-light">
-    <p><strong>Date added:</strong> {{ shoppinglist.date_added|date:'d M Y H:i' }}</p>
+    <p><strong>Last edit:</strong> {{ shoppinglist.date_added|date:'d M Y H:i' }}</p>
     {% if shoppinglist.owner.username == user.username %}
       <div class="d-flex w-100 justify-content-between">
         <a class="btn bg-scheduler-dark-3 c-scheduler btn-lg" href="{% url 'task_manager:slist-update' shoppinglist.pk %}" role="button">Edit</a>

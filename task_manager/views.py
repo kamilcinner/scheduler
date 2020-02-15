@@ -144,6 +144,10 @@ def shoppinglist_update_view(request, pk):
     if request.method == 'POST':
         formset = ShoppingListItemFormSet(request.POST)
         if formset.is_valid():
+            # Updating list last edit
+            s_list.date_added = timezone.now()
+            s_list.save()
+
             for item in s_list.shoppinglistitem_set.all():
                 item.delete()
             for form in formset:
