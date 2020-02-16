@@ -17,14 +17,14 @@
         <div class="jumbotron py-3 bg-scheduler-dark-2">
         <div class="form-group">
           {{ form.username.label_tag }}
-          <input class="form-control bg-scheduler-dark-2" id="{{ form.username.if_for_label }}" type="text" name="{{ form.username.html_name }}" maxlength="20" required>
+          <input class="form-control bg-scheduler-dark-3" id="{{ form.username.if_for_label }}" type="text" name="{{ form.username.html_name }}" maxlength="20" required>
           {% for error in form.username.errors %}
             <small class="text-danger">{{ form.username.errors }}</small>
           {% endfor %}
         </div>
         <div class="form-group">
           {{ form.password.label_tag }}
-          <input class="form-control bg-scheduler-dark-2" id="{{ form.password.if_for_label }}" type="password" name="{{ form.password.html_name }}" required>
+          <input class="form-control bg-scheduler-dark-3" id="{{ form.password.if_for_label }}" type="password" name="{{ form.password.html_name }}" required>
           {% for error in form.username.errors %}
             <small class="text-danger">{{ form.password.errors }}</small>
           {% endfor %}

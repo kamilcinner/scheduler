@@ -4,13 +4,16 @@
     margin-right: auto;
 }
 .form-control {
-    border-color: #00a161 !important;
+    /*border-color: #00a161 !important;*/
     color: white;
+    border: none !important;
 }
 .form-control:focus {
-    border-color: #00a161 !important;
+    /*border-color: #00a161 !important;*/
     color: white;
-    box-shadow: 0 0 0 0.1rem #00a161;
+    /*box-shadow: 0 0 0 0.1rem #00a161;*/
+    border: none !important;
+    box-shadow: none !important;
 }
 .btn {
     box-shadow: none;
