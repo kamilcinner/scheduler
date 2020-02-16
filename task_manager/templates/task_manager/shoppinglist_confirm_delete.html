@@ -1,6 +1,7 @@
 {% extends 'task_manager/base_generic.html' %}
 
 {% block content %}
+  <div class="jumbotron py-3 bg-scheduler-dark-2">
   <h1>Delete Shopping List</h1>
   <p>Are you sure you want to delete the shopping list: <strong class="text-success">{{ shoppinglist }}</strong>?</p>
   <form method="POST">
@@ -8,4 +9,5 @@
     <a class="btn bg-scheduler c-scheduler-dark" href="{% url 'task_manager:slist-detail' shoppinglist.pk %}" role="button">No, go back</a>
     <button type="submit" class="btn btn-danger">Yes, delete</button>
   </form>
+  </div>
 {% endblock %}

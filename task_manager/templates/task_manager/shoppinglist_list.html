@@ -24,9 +24,12 @@
         </a>
       {% endfor %}
     </div>
-    <p class="h4">That's all! Would You mind add another <a class="btn bg-scheduler c-scheduler-dark btn-sm" href="{% url 'task_manager:slist-create' %}" role="button">Shopping List</a> ?</p>
+    <div class="jumbotron py-0 bg-scheduler">
+      <p class="lead text-center">That's all! Would You mind add another <a class="btn py-0 my-2 bg-scheduler-dark-2 c-scheduler btn-lg" href="{% url 'task_manager:slist-create' %}" role="button">Shopping List</a></p>
+    </div>
   {% else %}
-    <p class="text-center">You haven't added any shopping list yet</p>
-    <p class="h3">Would You mind add your first <a class="btn bg-scheduler c-scheduler-dark btn-sm" href="{% url 'task_manager:slist-create' %}" role="button">Shopping List</a> ?</p>
+    <div class="jumbotron py-0 bg-scheduler">
+      <p class="lead text-center">Would You mind add your first <a class="btn py-0 my-2 bg-scheduler-dark-2 c-scheduler btn-lg" href="{% url 'task_manager:slist-create' %}" role="button">Shopping List</a></p>
+    </div>
   {% endif %}
 {% endblock %}

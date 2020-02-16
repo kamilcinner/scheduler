@@ -55,6 +55,7 @@ $(document).ready(function(){
 {% block content %}
   <form action="" method="post">
     {% csrf_token %}
+    <div class="jumbotron py-1 bg-scheduler-dark-2">
     <div class="form-group">
       {{ form.name.label_tag }}
       {{ form.name }}
@@ -81,7 +82,7 @@ $(document).ready(function(){
     </div>
     <div class="form-group">
       <h1 class="h4">Due date</h1>
-      <hr class="bg-scheduler-dark-2">
+      <hr class="bg-scheduler-light">
       <div class="form-row">
         <div class="col-4">
           {{ form.year.label_tag }}
@@ -110,7 +111,7 @@ $(document).ready(function(){
       {% endfor %}
     </div>
     <div class="form-group">
-      <hr class="bg-scheduler-dark-2">
+      <hr class="bg-scheduler-light">
       <div class="form-row">
         <div class="col-3">
           {{ form.hour.label_tag }}
@@ -131,7 +132,8 @@ $(document).ready(function(){
       {% endfor %}
     </div>
     <div class="form-group">
-      <button type="submit" class="btn my-3 bg-scheduler c-scheduler-dark">Save</button>
+      <button type="submit" class="btn bg-scheduler c-scheduler-dark">Save</button>
+    </div>
     </div>
   </form>
 {% endblock %}

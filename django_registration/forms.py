@@ -20,7 +20,7 @@ class UserCreateModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark'})
+            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark-3'})
 
     # password1 = forms.PasswordInput() - doesn't work properly
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
