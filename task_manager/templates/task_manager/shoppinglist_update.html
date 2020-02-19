@@ -1,65 +1,15 @@
 {% extends 'task_manager/base_generic.html' %}
 
-{% block script %}<script type="text/javascript">
-function addForm() {
-    var el = document.getElementById('id_form-TOTAL_FORMS');
-    var counter = parseInt(el.getAttribute('value'));
-    $('.fields-wrapper').append(
-        '<div class="form-group">'+
-        '<div class="input-group">'+
-        '<div class="input-group-prepend bg-scheduler-dark-2">'+
-        '<span class="input-group-text px-2 bg-scheduler-dark-3 c-scheduler">' + (counter + 1) + '</span>'+
-        '</div>'+
-        '<input type="text" name="form-' + counter + '-name" maxlength="100" class="form-control bg-scheduler-dark-3" id="id_form-' + counter + '-name">'+
-        '<input type="hidden" name="form-' + counter + '-status" counterue="False" id="id_form-' + counter + '-status">'+
-        '<div class="input-group-append bg-scheduler-dark-2">'+
-        '<button type="button" class="btn btn-danger px-3 delete-form-row">-</button>'+
-        '</div>'+
-        '</div>'+
-        '</div>'
-    );
-    counter += 1;
-    el.setAttribute('value', counter);
-    $('.delete-form-row').click(function(){
-        $(this).closest('.form-group').remove();
-        var forms = $('.input-group');
-        $('#id_form-TOTAL_FORMS').val(forms.length);
-        for (var i = 0, formCount = forms.length; i < formCount; i++) {
-            $(forms.get(i)).find(':input').each(function () {
-                var regexp = new RegExp('form-\\d+');
-                if (this.name) this.name = this.name.replace(regexp, 'form-' + i);
-                if (this.id) this.id = this.id.replace(regexp, 'form-' + i)
-            });
-            $(forms.get(i)).find('span').html(i + 1);
-        }
-    });
-}
-$(document).ready(function(){
-    $('.add-form-row').click(function(){
-        addForm()
-    });
-    $('.delete-form-row').click(function(){
-        $(this).closest('.form-group').remove();
-        var forms = $('.input-group');
-        $('#id_form-TOTAL_FORMS').val(forms.length);
-        for (var i = 0, formCount = forms.length; i < formCount; i++) {
-            $(forms.get(i)).find(':input').each(function () {
-                var regexp = new RegExp('form-\\d+');
-                if (this.name) this.name = this.name.replace(regexp, 'form-' + i);
-                if (this.id) this.id = this.id.replace(regexp, 'form-' + i)
-            });
-            $(forms.get(i)).find('span').html(i + 1);
-        }
-    });
-});
-</script>{% endblock %}
+{% load static %}
+
+{% block script %}<script src="{% static 'task_manager/js/shopping_list_items_interaction.js' %}"></script>{% endblock %}
 
 {% block content %}
   <div class="jumbotron mb-3 p-2 bg-scheduler-dark-2 c-scheduler-white">
     <h1 class="display-4">{{ shoppinglist.name }}</h1>
     <hr class="my-4 bg-scheduler-light">
     <form method="post">
-      <div class="fields-wrapper">
+      <div id="fields-wrapper">
       {% csrf_token %}
       {{ formset.management_form }}
       {% for item in formset %}
@@ -70,14 +20,14 @@ $(document).ready(function(){
             </div>
             {{ item.name }}{{ item.status }}
             <div class="input-group-append bg-scheduler-dark-2">
-              <button type="button" class="btn btn-danger px-3 delete-form-row">-</button>
+              <button onclick="deleteForm(this)" type="button" class="btn btn-danger px-3 delete-form-row">-</button>
             </div>
           </div>
         </div>
       {% endfor %}
       </div>
       <div class="d-flex w-100 justify-content-between">
-        <button type="button" class="btn bg-scheduler-dark-3 c-scheduler add-form-row">Add another</button>
+        <button onclick="addForm()" type="button" class="btn bg-scheduler-dark-3 c-scheduler add-form-row">Add another</button>
         <button type="submit" class="btn bg-scheduler-dark-3 c-scheduler">Save</button>
       </div>
     </form>
