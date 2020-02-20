@@ -13,7 +13,7 @@ class ShoppingList(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100, verbose_name='Shopping list name')
-    date_added = models.DateTimeField(default=timezone.now())  # TODO: maybe change name to last_edit because we-re using this that way
+    date_added = models.DateTimeField(default=timezone.now)  # TODO: maybe change name to last_edit because we-re using this that way
     is_shared = models.BooleanField(default=False)
 
     def get_absolute_url(self):
