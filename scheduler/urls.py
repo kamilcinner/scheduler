@@ -33,5 +33,5 @@ urlpatterns = [
     path('scheduler/', include('task_manager.urls')),
     path('scheduler/', include('shoppinglist_manager.urls')),
 
-    path('', RedirectView.as_view(url='scheduler/', permanent=True)),
+    # path('', RedirectView.as_view(url='scheduler/', permanent=True)),
 ]
