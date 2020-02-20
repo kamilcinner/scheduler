@@ -1,4 +1,4 @@
-{% extends 'task_manager/base_generic.html' %}
+{% extends 'base_generic.html' %}
 
 {% block content %}
   <div class="jumbotron mb-3 p-2 {% if task.priority == 'h' %}bg-scheduler-dark-2 c-scheduler-white{% elif task.priority == 'l' %}bg-scheduler-light c-scheduler-dark{% else %}bg-scheduler-dark-3 c-scheduler-light{% endif %}">

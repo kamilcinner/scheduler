@@ -1,7 +1,7 @@
 from django import forms
 from django.utils import timezone
 
-from task_manager.models import Task, ShoppingList, ShoppingListItem
+from task_manager.models import Task
 
 
 class TaskCreateModelForm(forms.ModelForm):
@@ -131,25 +131,3 @@ class TaskCreateModelForm(forms.ModelForm):
         if commit:
             task.save()
         return task
-
-
-class ShoppingListCreateModelForm(forms.ModelForm):
-    class Meta:
-        model = ShoppingList
-        fields = ['name']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark-3'})
-
-
-class ShoppingListItemCreateModelForm(forms.ModelForm):
-    class Meta:
-        model = ShoppingListItem
-        fields = ['name', 'status']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'class': 'form-control bg-scheduler-dark-3'})
-        self.fields['status'].widget = forms.HiddenInput()

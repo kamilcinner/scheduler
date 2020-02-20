@@ -10,7 +10,7 @@ class UserCreateView(generic.CreateView):
     template_name = 'auth/user_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('task_manager:index')
+        return reverse_lazy('index')
 
 
 def user_login_view(request):

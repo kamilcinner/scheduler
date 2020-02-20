@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['localhost', '192.168.0.122', 'scheduler-kamilcinner.herokuapp.
 INSTALLED_APPS = [
     'django_registration.apps.DjangoRegistrationConfig',
     'task_manager.apps.TaskManagerConfig',
+    'shoppinglist_manager.apps.ShoppinglistManagerConfig',
 
     # Default apps
     'django.contrib.admin',
@@ -148,7 +149,9 @@ DATABASES['default'].update(db_from_env)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-# THIS CAUSE ERROR 500 ------------------------------------------------------------------------------
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+PROJECT_DIR=os.path.dirname(__file__)
+STATICFILES_DIRS = ( os.path.join(PROJECT_DIR,'static/'),)

@@ -7,12 +7,12 @@
     {% load static %}
     <!-- Bootstrap CSS -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:0,100,200,300,400,500,600,700&amp;subset=latin-ext" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'task_manager/bootstrap/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'task_manager/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'task_manager/css/clean_links.css' %}">
-    <link rel="stylesheet" href="{% static 'task_manager/css/input_form.css' %}">
-    <link rel="stylesheet" href="{% static 'task_manager/css/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'task_manager/fontello/css/fontello.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/clean_links.css' %}">
+    <link rel="stylesheet" href="{% static 'css/input_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'fontello/css/fontello.css' %}">
     <title>Scheduler</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -25,45 +25,45 @@
   <body>
     <header class="sticky-top">
       <nav class="navbar navbar-light bg-scheduler navbar-expand-lg">
-        <a class="navbar-brand c-scheduler-dark-2" href="{% url 'task_manager:index' %}"><img class="d-inline-block mr-1 align-bottom" src="{% static 'task_manager/images/logo.png' %}" width="30" height="30" alt="logo"> Scheduler</a>
+        <a class="navbar-brand c-scheduler-dark-2" href="{% url 'index' %}"><img class="d-inline-block mr-1 align-bottom" src="{% static 'images/logo.png' %}" width="30" height="30" alt="logo"> Scheduler</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Navigation toggler">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainmenu">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="{% url 'task_manager:index' %}">Start</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Start</a></li>
 
             {% if not user.is_authenticated %}
               <a class="nav-link" href="{% url 'login' %}">Login</a>
               <a class="nav-link" href="{% url 'django_registration:user-create' %}">Register</a>
             {% else %}
               <a class="nav-link" href="{% url 'task_manager:task-list' %}">Tasks</a>
-              <a class="nav-link" href="{% url 'task_manager:slist-list' %}">Shopping Lists</a>
+              <a class="nav-link" href="{% url 'shoppinglist_manager:slist-list' %}">Shopping Lists</a>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage tasks</a>
                 <div class="dropdown-menu" aria-labelledby="submenu">
                   <a class="dropdown-item" href="{% url 'task_manager:task-create' %}">Create new</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item disabled" href="{% url 'task_manager:inactive-yet' %}">Delete</a>
+                  <a class="dropdown-item disabled" href="{% url 'inactive-yet' %}">Delete</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item disabled" href="{% url 'task_manager:inactive-yet' %}">Mark done</a>
+                  <a class="dropdown-item disabled" href="{% url 'inactive-yet' %}">Mark done</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage shopping lists</a>
                 <div class="dropdown-menu" aria-labelledby="submenu">
-                  <a class="dropdown-item" href="{% url 'task_manager:slist-create' %}">Create new</a>
+                  <a class="dropdown-item" href="{% url 'shoppinglist_manager:slist-create' %}">Create new</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item disabled" href="{% url 'task_manager:inactive-yet' %}">Delete</a>
+                  <a class="dropdown-item disabled" href="{% url 'inactive-yet' %}">Delete</a>
                 </div>
               </li>
             {% endif %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">About</a>
               <div class="dropdown-menu" aria-labelledby="submenu">
-                <a class="dropdown-item" href="{% url 'task_manager:about' %}">Scheduler</a>
+                <a class="dropdown-item" href="{% url 'about' %}">Scheduler</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'task_manager:other-projects' %}">Other projects</a>
+                <a class="dropdown-item" href="{% url 'other-projects' %}">Other projects</a>
               </div>
             </li>
             {% if user.is_authenticated %}
@@ -89,9 +89,9 @@
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6">
             <h1 class="h2 my-3">Projects</h1>
-            <a class="text-decoration-none d-flex" href="{% url 'task_manager:inactive-yet' %}">
+            <a class="text-decoration-none d-flex" href="{% url 'inactive-yet' %}">
               <i class=""></i>
-              <strong class="my-1"><a href="{% url 'task_manager:about' %}">Scheduler</a></strong>
+              <strong class="my-1"><a href="{% url 'about' %}">Scheduler</a></strong>
             </a>
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6">
@@ -126,7 +126,7 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="{% static 'task_manager/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     {% block script %}{% endblock %}
   </body>
 </html>

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
 
+from scheduler import views
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
@@ -24,6 +25,13 @@ urlpatterns = [
 
     path('register/', include('django_registration.urls')),
 
+    path('', views.index_view, name='index'),
+    path('about/', views.about_view, name='about'),
+    path('other/projects/', views.other_projects_view, name='other-projects'),
+    path('inactive/', views.inactive_yet_view, name='inactive-yet'),
+
     path('scheduler/', include('task_manager.urls')),
+    path('scheduler/', include('shoppinglist_manager.urls')),
+
     path('', RedirectView.as_view(url='scheduler/', permanent=True)),
 ]

@@ -1,9 +1,9 @@
-{% extends "task_manager/base_generic.html" %}
+{% extends "base_generic.html" %}
 
 {% block content %}
   <div class="jumbotron py-3 bg-scheduler-dark-2">
   <h1 class="text-center">Logged out!</h1>
   <p class="text-center my-4">We hope You will come back soon!</p>
-  <a class="btn bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'task_manager:index' %}" role="button">Back to Home</a>
+  <a class="btn bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'index' %}" role="button">Back to Home</a>
   </div>
 {% endblock %}
