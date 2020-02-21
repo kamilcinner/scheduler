@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django_registration.apps.DjangoRegistrationConfig',
     'task_manager.apps.TaskManagerConfig',
     'shoppinglist_manager.apps.ShoppinglistManagerConfig',
+    'schedule_manager.apps.ScheduleManagerConfig',
 
     # Default apps
     'django.contrib.admin',
@@ -137,7 +138,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'scheduler.kc@gmail.com'
-EMAIL_HOST_PASSWORD = '%t1UD@Z1uyU^B5dfB4jb!9i*t7g7T%'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
 
 
 # Heroku: Update database configuration from $DATABASE_URL.
