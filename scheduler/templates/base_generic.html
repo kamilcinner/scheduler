@@ -40,21 +40,11 @@
               <a class="nav-link" href="{% url 'task_manager:task-list' %}">Tasks</a>
               <a class="nav-link" href="{% url 'shoppinglist_manager:slist-list' %}">Shopping Lists</a>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage tasks</a>
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage</a>
                 <div class="dropdown-menu" aria-labelledby="submenu">
-                  <a class="dropdown-item" href="{% url 'task_manager:task-create' %}">Create new</a>
+                  <a class="dropdown-item" href="{% url 'task_manager:task-create' %}">Create new Task</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item disabled" href="{% url 'inactive-yet' %}">Delete</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item disabled" href="{% url 'inactive-yet' %}">Mark done</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Manage shopping lists</a>
-                <div class="dropdown-menu" aria-labelledby="submenu">
-                  <a class="dropdown-item" href="{% url 'shoppinglist_manager:slist-create' %}">Create new</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item disabled" href="{% url 'inactive-yet' %}">Delete</a>
+                  <a class="dropdown-item" href="{% url 'shoppinglist_manager:slist-create' %}">Create new Shopping List</a>
                 </div>
               </li>
             {% endif %}
