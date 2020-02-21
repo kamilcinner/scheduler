@@ -1,59 +1,11 @@
 {% extends "base_generic.html" %}
 
-{% block script %}<script>
-function is_leap_year() {
-    var year = parseInt($('#id_year').children(':selected').val());
-    if (year % 4 == 0) {
-        if (year % 100 == 0) {
-            if (year % 400 == 0) {
-                return  true;
-            }
-        }
-        else {
-            return true;
-        }
-    }
-    return false;
-}
-function validate_day_form(el) {
-    var month = parseInt($(el).children(':selected').val());
-    var day = document.getElementById('id_day');
-    var last_day = day.options[day.length-1].getAttribute('value');
-    var lesser_months = [2,4,6,9,11];
-    var good_last_day;
+{% load static %}
 
-    if (lesser_months.includes(month)) {
-        if (month == 2) {
-            if (is_leap_year())
-                good_last_day = 29;
-            else
-                good_last_day = 28;
-        } else good_last_day = 30;
-    } else good_last_day = 31;
-
-    while (last_day > good_last_day) {
-        day.remove(last_day-1);
-        last_day--;
-    }
-    while (last_day < good_last_day) {
-        last_day++;
-        day.innerHTML += '<option value="' + last_day + '">' + last_day + '</option>';
-    }
-}
-$('#id_month').change(function() {
-    validate_day_form(this);
-});
-$('#id_year').change(function() {
-    validate_day_form($('#id_month'));
-});
-$(document).ready(function(){
-    var el = $('#id_month');
-    validate_day_form(el)
-});
-</script>{% endblock %}
+{% block script %}<script src="{% static 'task_manager/js/task_form_client_validation.js' %}"></script>{% endblock %}
 
 {% block content %}
-  <form action="" method="post">
+  <form method="post">
     {% csrf_token %}
     <div class="jumbotron py-1 bg-scheduler-dark-2">
     <div class="form-group">

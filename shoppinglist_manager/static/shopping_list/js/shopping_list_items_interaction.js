@@ -1,4 +1,5 @@
 function deleteForm(btn) {
+    'use strict';
     btn.closest('.form-group').remove();
     var forms = document.getElementsByClassName('input-group');
     document.getElementById('id_form-TOTAL_FORMS').setAttribute('value', forms.length);
@@ -15,6 +16,7 @@ function deleteForm(btn) {
 
 
 function addForm() {
+    'use strict';
     var el = document.getElementById('id_form-TOTAL_FORMS');
     var counter = parseInt(el.getAttribute('value'));
 
