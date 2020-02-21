@@ -13,6 +13,28 @@ function is_leap_year() {
 }
 
 
+function reset_day() {
+    'use strict';
+    set_proper_select(true);
+}
+
+
+function set_proper_select(reset) {
+    'use_strict';
+    var day = document.getElementById('id_day');
+    for (var i = 0;i < day.options.length;i++) {
+        if (day.options[i].hasAttribute('selected')) {
+            day.options[i].removeAttribute('selected');
+            break;
+        }
+    }
+    var index;
+    if (reset === true) {index = 0;}
+    else {index = day.selectedIndex;}
+    day.options[index].setAttribute('selected', '');
+}
+
+
 function validate_day_form() {
     'use strict';
     var selector = document.getElementById('id_month');
@@ -44,7 +66,9 @@ function validate_day_form() {
 }
 
 
+document.getElementById('id_day').addEventListener("change", set_proper_select);
+document.getElementById('id_month').addEventListener("change", reset_day);
 document.getElementById('id_month').addEventListener("change", validate_day_form);
 document.getElementById('id_year').addEventListener("change", validate_day_form);
 
-validate_day_form();
+validate_day_form(false);
