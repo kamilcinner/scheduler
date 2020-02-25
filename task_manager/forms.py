@@ -2,6 +2,7 @@ from django import forms
 from django.utils import timezone
 
 from task_manager.models import Task
+from task_manager.utils import MONTH_CHOICES as MC
 
 
 class TaskCreateModelForm(forms.ModelForm):
@@ -66,29 +67,15 @@ class TaskCreateModelForm(forms.ModelForm):
             self.MINUTE_CHOICES += (tuple((minute, content)),)
 
     YEAR_CHOICES = ()
-    year = forms.ChoiceField(choices=YEAR_CHOICES)
-
-    MONTH_CHOICES = (
-        (1, 'january'),
-        (2, 'february'),
-        (3, 'march'),
-        (4, 'april'),
-        (5, 'may'),
-        (6, 'august'),
-        (7, 'june'),
-        (8, 'july'),
-        (9, 'september'),
-        (10, 'october'),
-        (11, 'november'),
-        (12, 'december')
-    )
-
-    month = forms.ChoiceField(choices=MONTH_CHOICES)
+    MONTH_CHOICES = MC
     DAY_CHOICES = ()
-    day = forms.IntegerField(min_value=1)
     HOUR_CHOICES = ()
-    hour = forms.ChoiceField(choices=HOUR_CHOICES)
     MINUTE_CHOICES = ()
+
+    year = forms.ChoiceField(choices=YEAR_CHOICES)
+    month = forms.ChoiceField(choices=MONTH_CHOICES)
+    day = forms.ChoiceField(choices=DAY_CHOICES)
+    hour = forms.ChoiceField(choices=HOUR_CHOICES)
     minute = forms.ChoiceField(choices=MINUTE_CHOICES)
 
     def is_leap_year(self, year):

@@ -23,8 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'wupnj_0$m(@1(l3ljeepfcs2ta=x=&=9_fd0rx0qbe-9vy%(uu')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = True
+# TODO: change debug to follow when deploy
+# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['localhost', '192.168.0.122', 'scheduler-kamilcinner.herokuapp.com']
 
@@ -132,13 +133,14 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'scheduler.kc@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
+# TODO: change backend to gmail for deploy
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'scheduler.kc@gmail.com'
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
 
 
 # Heroku: Update database configuration from $DATABASE_URL.
@@ -154,5 +156,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-PROJECT_DIR=os.path.dirname(__file__)
+PROJECT_DIR = os.path.dirname(__file__)
 STATICFILES_DIRS = ( os.path.join(PROJECT_DIR,'static/'),)

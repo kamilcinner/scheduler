@@ -1,4 +1,4 @@
-#!/home/kamil/dev/scheduler/venv/bin/python
+#!/home/kamil/dev/github.com/kamilcinner/scheduler/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

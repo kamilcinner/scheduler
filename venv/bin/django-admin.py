@@ -1,4 +1,4 @@
-#!/home/kamil/dev/scheduler/venv/bin/python
+#!/home/kamil/dev/github.com/kamilcinner/scheduler/venv/bin/python
 from django.core import management
 
 if __name__ == "__main__":

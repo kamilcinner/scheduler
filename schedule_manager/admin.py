@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from schedule_manager.models import ScheduledDay, Activity
+
+
+admin.site.register(ScheduledDay)
+admin.site.register(Activity)
