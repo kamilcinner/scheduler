@@ -27,7 +27,7 @@ DEBUG = True
 # TODO: change debug to follow when deploy
 # DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['localhost', '192.168.0.122', 'scheduler-kamilcinner.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '192.168.0.122', '192.168.43.130', 'scheduler-kamilcinner.herokuapp.com']
 
 
 # Application definition

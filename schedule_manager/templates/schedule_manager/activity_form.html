@@ -1,0 +1,23 @@
+{%  extends 'base_generic.html' %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="jumbotron py-1 bg-scheduler-dark-2">
+{#    TODO: change to data type input#}
+      {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {{ field }}
+          <small class="text-muted">{{ field.help_text }}</small>
+          {% for error in field.errors %}
+            <br><small class="text-danger">{{ error }}</small>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <div class="form-group">
+        <button type="submit" class="btn bg-scheduler c-scheduler-dark">Save</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}

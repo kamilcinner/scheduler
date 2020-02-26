@@ -4,7 +4,7 @@
   <form method="post">
     {% csrf_token %}
     <div class="jumbotron py-2 bg-scheduler-dark-2">
-    <div class="form-group">
+    <div class="form-group">{#    TODO: change to data type input#}
       {{ form }}
     </div>
     <div class="form-group">
@@ -12,12 +12,18 @@
     </div>
     </div>
   </form>
-  <ul>
-    {% for day in week_days %}
-      <h1>{{ day.name }}</h1>
-      {% for activity in day.scheduled_day.activity_set.all %}
-        <li>{{ activity }}</li>
-      {% endfor %}
-    {% endfor %}
-  </ul>
+  <div class="jumbotron py-2 bg-scheduler-dark-2">
+    {% if week_days %}
+      <ul>
+        {% for day in week_days %}
+          <h1>{{ day.name }}</h1>
+          {% for act in day.activities %}
+            <li>{{ act }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    {% else %}
+      <h1>Select proper week to see your activities</h1>
+    {% endif %}
+  </div>
 {% endblock %}
