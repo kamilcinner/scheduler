@@ -3,7 +3,7 @@
 {% block content %}
   <form method="post">
     {% csrf_token %}
-    <div class="jumbotron py-1 bg-scheduler-dark-2">
+    <div class="jumbotron py-1 bg-scheduler-dark-2 c-scheduler-light">
       <div class="form-group">
         {{ form.name.label_tag }}
         {{ form.name }}
@@ -22,12 +22,12 @@
       </div>
       <div class="form-group">
         <div class="form-row">
-          <div class="col-5">
+          <div class="col-6">
             {{ form.time_start.label_tag }}
             <input type="time" name="time_start" value="{{ form.time_start.value|date:'H:i' }}" class="form-control bg-scheduler-dark-3" required id="id_time_start">
             <small class="text-muted">{{ form.time_start.help_text }}</small>
           </div>
-          <div class="col-5">
+          <div class="col-6">
             {{ form.time_end.label_tag }}
             <input type="time" name="time_end" value="{{ form.time_end.value|date:'H:i' }}" class="form-control bg-scheduler-dark-3" required id="id_time_end">
             <small class="text-muted">{{ form.time_end.help_text }}</small>

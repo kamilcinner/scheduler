@@ -2,14 +2,14 @@
 
 {% block content %}
   <div class="jumbotron mb-3 p-2 bg-scheduler-dark-2 c-scheduler-white">
-    <h1 class="display-4">{{ activity.name }}</h1>
+    <h1 class="font-weight-light">{{ activity.name }}</h1>
     <p class="my-0 font-weight-light {% if not activity.status_active %}text-danger{% else %}c-scheduler-light{% endif %}">{{ activity.date|date:'d M Y' }} ({{ activity.get_week_day_name }})</p>
     <p class="mt-0 lead c-scheduler-light">{{ activity.get_crispy_time }}</p>
     {% if activity.repeat_weekly %}<p class="my-0 font-weight-light c-scheduler">Repeat every {{ activity.get_week_day_name }}</p>{% endif %}
     {% if activity.status_active %}<p class="my-0 ml-1 font-weight-light text-success">Active</p>{% else %}<p class="ml-1 my-0 font-weight-bold text-danger">Inactive</p>{% endif %}
     <hr class="mb-4 mt-0 bg-scheduler-dark-3">
-    <p class="c-scheduler-light">{{ activity.description }}</p>
-    <hr class="mb-4 mt-0 bg-scheduler-dark-3">
+    <p class="my-0 c-scheduler-light">{{ activity.description }}</p>
+    <hr class="my-4 mt-0 bg-scheduler-dark-3">
     <div class="d-flex w-100 justify-content-between">
       <a class="btn bg-scheduler-dark-3 c-scheduler btn-lg" href="{% url 'schedule_manager:activity-update' activity.pk %}" role="button">Edit</a>
       <a class="btn btn-danger btn-lg" href="{% url 'schedule_manager:activity-delete' activity.pk %}" role="button">Delete</a>

@@ -79,7 +79,7 @@ class ActivityUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class ActivityDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Activity
-    success_url = reverse_lazy('schedule_manager:schedule-week')
+    success_url = reverse_lazy('schedule_manager:activity-list')
     
     
 class ActivityDetailView(LoginRequiredMixin, generic.DetailView):

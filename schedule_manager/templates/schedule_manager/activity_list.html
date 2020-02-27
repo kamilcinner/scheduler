@@ -10,6 +10,7 @@
             <small class="{% if not act.status_active %}text-danger{% else %}c-scheduler-light{% endif %}">{{ act.date|date:'d M Y' }} ({{ act.get_week_day_name }})</small>
           </div>
           <small class="c-scheduler-light">{{ act.get_crispy_time }}</small>
+          <p class="my-0"><small class="c-scheduler-light">{{ act.description }}</small></p>
           {% if act.repeat_weekly %}<p class="my-0 font-weight-light c-scheduler">Repeat every {{ act.get_week_day_name }}</p>{% endif %}
           {% if act.status_active %}<p class="my-0 font-weight-light text-success">Active</p>{% else %}<p class="my-0 font-weight-bold text-danger">Inactive</p>{% endif %}
         </a>
