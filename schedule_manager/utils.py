@@ -9,12 +9,6 @@ WEEK_DAYS = (
 )
 
 
-# class WeekDay:
-#     def __init__(self, name, scheduled_day=None):
-#         self.name = name
-#         self.scheduled_day = scheduled_day
-
-
 class Day:
     def __init__(self, name, date=None, activities=None):
         self.name = name
@@ -27,3 +21,16 @@ def is_there_day_with_specified_date(days, date):
         if day.date == date:
             return True
     return False
+
+
+def get_day_by_date(days, date):
+    """
+    Returns day with specified date if exist and None if not
+    :param days: list of days
+    :param date: date of day
+    :return:
+    """
+    for day in days:
+        if day.date == date:
+            return day
+    return None

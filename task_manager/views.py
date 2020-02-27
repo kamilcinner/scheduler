@@ -16,15 +16,25 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         return Task.objects.filter(owner__username__exact=self.request.user.username)
 
 
-class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+class TaskDetailView(generic.DetailView):
     model = Task
 
+    # def get_queryset(self):
+    #     task = get_object_or_404(Task, pk=self.kwargs['pk'])
+    #     if task.is_shared:
+    #         return Task.objects.filter(id__exact=self.kwargs['pk'])
+    #     if self.request.user.is_authenticated:
+    #         return Task.objects.filter(owner__username__exact=self.request.user.username)
+    #     return Task.objects.none()
+    
     def get_queryset(self):
         task = get_object_or_404(Task, pk=self.kwargs['pk'])
         if task.is_shared:
             return Task.objects.filter(id__exact=self.kwargs['pk'])
         if self.request.user.is_authenticated:
-            return Task.objects.filter(owner__username__exact=self.request.user.username)
+            if self.request.user.username == task.owner.username:
+                return Task.objects.filter(id__exact=self.kwargs['pk'])
+        # Django automatically raise 404 if no object matches the query
         return Task.objects.none()
 
 

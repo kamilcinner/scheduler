@@ -29,7 +29,8 @@ class ShoppingListDetailView(generic.DetailView):
         if slist.is_shared:
             return ShoppingList.objects.filter(id__exact=self.kwargs['pk'])
         if self.request.user.is_authenticated:
-            return ShoppingList.objects.filter(owner__username__exact=self.request.user.username)
+            if self.request.user.username == slist.owner.username:
+                return ShoppingList.objects.filter(id__exact=self.kwargs['pk'])
         return ShoppingList.objects.none()
 
 

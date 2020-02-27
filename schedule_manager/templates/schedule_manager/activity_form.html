@@ -4,11 +4,14 @@
   <form method="post">
     {% csrf_token %}
     <div class="jumbotron py-1 bg-scheduler-dark-2">
-{#    TODO: change to data type input#}
       {% for field in form %}
         <div class="form-group">
           {{ field.label_tag }}
-          {{ field }}
+          {% if field == form.date %}
+            <input type="date" name="date" value="{{ field.value }}" class="form-control bg-scheduler-dark-3" required id="id_date">
+          {% else %}
+            {{ field }}
+          {% endif %}
           <small class="text-muted">{{ field.help_text }}</small>
           {% for error in field.errors %}
             <br><small class="text-danger">{{ error }}</small>
