@@ -5,7 +5,7 @@ from schedule_manager.models import Activity
 
 
 class ScheduleWeekSelectForm(forms.Form):
-    date = forms.DateField(initial=timezone.datetime.today().strftime('%Y-%m-%d'))
+    date = forms.DateField(initial=timezone.datetime.today().strftime('%Y-%m-%d'), label='Week day date')
 
 
 class ActivityCreateModelForm(forms.ModelForm):
@@ -17,4 +17,8 @@ class ActivityCreateModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control bg-scheduler-dark-3'})
+            if field in ['status_active', 'repeat_weekly']:
+                class_set = 'custom-control-input'
+            else:
+                class_set = 'form-control bg-scheduler-dark-3'
+            self.fields[field].widget.attrs.update({'class': class_set})

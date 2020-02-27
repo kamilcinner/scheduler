@@ -22,7 +22,7 @@
         <a class="btn bg-scheduler-dark-3 c-scheduler btn-lg" href="{% url 'shoppinglist_manager:slist-update' shoppinglist.pk %}" role="button">Edit</a>
         <a class="btn btn-danger btn-lg" href="{% url 'shoppinglist_manager:slist-delete' shoppinglist.pk %}" role="button">Delete</a>
       </div>
-      <a class="btn mt-2 bg-scheduler-dark-3 c-scheduler btn-lg" href="{% url 'shoppinglist_manager:slist-share' shoppinglist.pk %}" role="button">{% if shoppinglist.is_shared %}Unshare{% else %}Share{% endif %}</a>
+      <a class="w-100 btn mt-2 bg-scheduler-dark-3 c-scheduler btn-lg" href="{% url 'shoppinglist_manager:slist-share' shoppinglist.pk %}" role="button">{% if shoppinglist.is_shared %}Unshare{% else %}Share{% endif %}</a>
     {% endif %}
   </div>
   {% if shoppinglist.owner.username == user.username %}

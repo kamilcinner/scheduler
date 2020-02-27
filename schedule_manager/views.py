@@ -1,80 +1,50 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
 from schedule_manager.forms import ScheduleWeekSelectForm, ActivityCreateModelForm
 from schedule_manager.models import Activity
-from schedule_manager.utils import *
+from schedule_manager.utils import WEEK_DAYS, WeekDay
 
 
 @login_required
 def schedule_week_detail_view(request):
+    activities = Activity.objects.filter(owner__username__exact=request.user.username)
     if request.method == 'POST':
         form = ScheduleWeekSelectForm(request.POST)
-        activities = Activity.objects.filter(owner__username__exact=request.user.username)
 
         if form.is_valid() and activities:
-            # List of Days with activity set
-            days = []
-            # Date of activities happening in ONE day
-            day_activities_date = activities[0].date
-            # Create first date based on activities
-            current_day_activities = []
-
-            # Create list of Days with activity set
-            for act in activities:
-                if act.date != day_activities_date:
-                    days.append(Day(name=day_activities_date.strftime('%A'),
-                                    date=day_activities_date,
-                                    activities=current_day_activities))
-                    current_day_activities = []
-
-                    day_activities_date = act.date
-
-                elif act == activities.last():
-                    days.append(Day(name=day_activities_date.strftime('%A'),
-                                    date=day_activities_date,
-                                    activities=current_day_activities))
-
-                current_day_activities.append(act)
-
-            # Date from form
-            date = form.cleaned_data['date']
-            # Date of Monday in a week in which selected day occurs
-            week_monday_date = None
+            # Date from form, this is our selected day
+            form_date = form.cleaned_data['date']
 
             # Get date of Monday in a week in which selected day occurs
             # week_day[0] is week day name
             # week_day[1] is week day index - Monday is 0, Sunday is 6
+            week_monday_date = None
             for week_day in WEEK_DAYS:
-                if week_day[0] == date.strftime('%A'):
-                    week_monday_date = date - timezone.timedelta(days=week_day[1])
+                if week_day[0] == form_date.strftime('%A'):
+                    week_monday_date = form_date - timezone.timedelta(days=week_day[1])
                     break
 
-            # List of Days which occurs in selected week
+            # Create list of days which occurs in a week in which selected day is present
             week_days = []
-            
-            # List of week day names
-            week_day_names = []
-            for name in WEEK_DAYS:
-                week_day_names.append(name[0])
-
-            # Add Days to our week day list
-            date = week_monday_date
-            got_at_least_one_activity = False
             for i in range(0, 7):
-                day = get_day_by_date(days=days, date=date)
-                if day:
-                    # Add Day from our list which occurs in selected week
-                    week_days.append(day)
-                    got_at_least_one_activity = True
-                else:
-                    # Add Day with no activities for proper work of our template
-                    week_days.append(Day(name=week_day_names[i], date=date))
-                date += timezone.timedelta(days=1)
+                week_days.append(WeekDay(date=week_monday_date + timezone.timedelta(days=i), activities=[]))
+
+            # Add proper activities to every day in a week
+            # adding is based on date and we're also checking if activity repeats every week (eg every Tuesday)
+            got_at_least_one_activity = False
+            for act in activities:
+                if not act.status_active:
+                    continue
+                for week_day in week_days:
+                    if act.date == week_day.date or (act.repeat_weekly and act.get_week_day_name == week_day.get_week_day_name):
+                        week_day.activities.append(act)
+                        got_at_least_one_activity = True
 
             context = {'form': form}
 
@@ -84,7 +54,9 @@ def schedule_week_detail_view(request):
             return render(request, 'schedule_manager/scheduleweek.html', context=context)
 
     form = ScheduleWeekSelectForm()
-    context = {'form': form, 'first_select': True}
+    context = {'form': form}
+    if activities:
+        context['first_select'] = True
     return render(request, 'schedule_manager/scheduleweek.html', context=context)
 
 
@@ -98,9 +70,6 @@ class ActivityCreateView(LoginRequiredMixin, generic.CreateView):
         """
         form.instance.owner = self.request.user
         return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('schedule_manager:activity-create')
 
 
 class ActivityUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -121,3 +90,34 @@ class ActivityDetailView(LoginRequiredMixin, generic.DetailView):
         if self.request.user.username == activity.owner.username:
             return Activity.objects.filter(id__exact=self.kwargs['pk'])
         return Activity.objects.none()
+
+
+class ActivityListView(LoginRequiredMixin, generic.ListView):
+    model = Activity
+
+    def get_queryset(self):
+        return Activity.objects.filter(owner__username__exact=self.request.user.username)
+
+
+@login_required
+def change_activity_status(request, pk):
+    activity = get_object_or_404(Activity, pk=pk)
+    if request.user.username != activity.owner.username:
+        raise Http404
+
+    activity.status_active = not activity.status_active
+    activity.save()
+
+    return HttpResponseRedirect(reverse('schedule_manager:activity-detail', args=[str(activity.pk)]))
+
+
+@login_required
+def change_repeat_status(request, pk):
+    activity = get_object_or_404(Activity, pk=pk)
+    if request.user.username != activity.owner.username:
+        raise Http404
+
+    activity.repeat_weekly = not activity.repeat_weekly
+    activity.save()
+
+    return HttpResponseRedirect(reverse('schedule_manager:activity-detail', args=[str(activity.pk)]))

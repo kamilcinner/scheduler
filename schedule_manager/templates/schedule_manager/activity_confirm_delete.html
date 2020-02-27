@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <div class="jumbotron py-3 bg-scheduler-dark-2">
+  <h1>Delete Activity</h1>
+  <p>Are you sure you want to delete the activity: <strong class="text-success">{{ activity }}</strong>?</p>
+  <form method="POST">
+    {% csrf_token %}
+    <a class="btn bg-scheduler c-scheduler-dark" href="{% url 'schedule_manager:activity-detail' activity.pk %}" role="button">No, go back</a>
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+  </form>
+  </div>
+{% endblock %}

@@ -13,34 +13,32 @@
         {% endfor %}
       </div>
       <div class="form-group">
-        <button type="submit" class="btn bg-scheduler c-scheduler-dark">Show</button>
+        <button type="submit" class="btn bg-scheduler c-scheduler-dark btn-lg w-100">Show</button>
       </div>
     </div>
   </form>
   {% if week_days %}
     {% for day in week_days %}
       <div class="jumbotron mb-3 p-2 bg-scheduler-dark-2 c-scheduler-white">
-        <h1 class="display-4">{{ day.name }}</h1>
-        <div class="list-group">
-          {% if day.activities %}
+        {% if day.activities %}
+          <h1 class="display-4">{{ day.get_week_day_name }}</h1>
+          <div class="list-group">
             {% for act in day.activities %}
-              <a class="list-group-item bg-scheduler-dark-3" href="#">
-                <h1 class="h5 c-scheduler-light">{{ act }}</h1>
+              <a class="list-group-item bg-scheduler-dark-3" href="{% url 'schedule_manager:activity-detail' act.pk %}">
+                <h1 class="h5 font-weight-bold">{{ act.get_crispy_time }}</h1>
                 <h1 class="h5 lead">{{ act.name }}</h1>
                 <small class="text-muted">{{ act.description }}</small>
               </a>
             {% endfor %}
-          {% else %}
-            <div class="list-group-item bg-scheduler-dark-2">
-              <h1 class="h4 lead text-muted">No activity</h1>
-            </div>
-          {% endif %}
-        </div>
+          </div>
+        {% else %}
+          <h1 class="h4 lead text-muted">{{ day.get_week_day_name }} - no activity</h1>
+        {% endif %}
       </div>
     {% endfor %}
   {% elif not first_select %}
-    <div class="jumbotron py-2 bg-scheduler-dark-2">
-      <h1 class="text-center">There are no activities in this week</h1>
+    <div class="jumbotron py-1 bg-scheduler">
+      <p class="my-0 lead text-center">There are no activities in this week</p>
     </div>
   {% endif %}
 {% endblock %}

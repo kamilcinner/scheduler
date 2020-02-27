@@ -47,7 +47,7 @@ button:focus {
     border-bottom: solid 1px #191d21;
 }
 textarea {
-    max-height: 150px;
+    max-height: 100px;
 }
 .text-line-through {
     text-decoration: line-through !important;

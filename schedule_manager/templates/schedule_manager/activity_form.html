@@ -4,20 +4,62 @@
   <form method="post">
     {% csrf_token %}
     <div class="jumbotron py-1 bg-scheduler-dark-2">
-      {% for field in form %}
-        <div class="form-group">
-          {{ field.label_tag }}
-          {% if field == form.date %}
-            <input type="date" name="date" value="{{ field.value }}" class="form-control bg-scheduler-dark-3" required id="id_date">
-          {% else %}
-            {{ field }}
-          {% endif %}
-          <small class="text-muted">{{ field.help_text }}</small>
-          {% for error in field.errors %}
-            <br><small class="text-danger">{{ error }}</small>
-          {% endfor %}
+      <div class="form-group">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+        <small class="text-muted">{{ form.name.help_text }}</small>
+        {% for error in form.name.errors %}
+          <br><small class="text-danger">{{ error }}</small>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+        <small class="text-muted">{{ form.description.help_text }}</small>
+        {% for error in form.description.errors %}
+          <br><small class="text-danger">{{ error }}</small>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-5">
+            {{ form.time_start.label_tag }}
+            <input type="time" name="time_start" value="{{ form.time_start.value|date:'H:i' }}" class="form-control bg-scheduler-dark-3" required id="id_time_start">
+            <small class="text-muted">{{ form.time_start.help_text }}</small>
+          </div>
+          <div class="col-5">
+            {{ form.time_end.label_tag }}
+            <input type="time" name="time_end" value="{{ form.time_end.value|date:'H:i' }}" class="form-control bg-scheduler-dark-3" required id="id_time_end">
+            <small class="text-muted">{{ form.time_end.help_text }}</small>
+          </div>
         </div>
-      {% endfor %}
+        {% for error in form.time_start.errors %}
+          <br><small class="text-danger">{{ error }}</small>
+        {% endfor %}
+        {% for error in form.time_end.errors %}
+          <br><small class="text-danger">{{ error }}</small>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.date.label_tag }}
+        <input type="date" name="date" value="{{ form.date.value|date:'Y-m-d' }}" class="form-control bg-scheduler-dark-3" required id="id_date">
+        <small class="text-muted">{{ form.date.help_text }}</small>
+        {% for error in form.date.errors %}
+          <br><small class="text-danger">{{ error }}</small>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-switch">
+          {{ form.status_active }}
+          <label class="custom-control-label" for="id_status_active">{{ form.status_active.label }}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-switch">
+          {{ form.repeat_weekly }}
+          <label class="custom-control-label" for="id_repeat_weekly">{{ form.repeat_weekly.label }}</label>
+        </div>
+      </div>
       <div class="form-group">
         <button type="submit" class="btn bg-scheduler c-scheduler-dark">Save</button>
       </div>
