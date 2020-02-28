@@ -14,7 +14,7 @@
     <a class="btn mb-2 bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'shoppinglist_manager:slist-list' %}" role="button">Your Shopping Lists</a>
     <a class="btn mb-5 bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'shoppinglist_manager:slist-create' %}" role="button">Create Shopping List</a>
 {#    <hr class="my-3 bg-scheduler-dark-2">#}
-    <a class="btn mb-3 bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'schedule_manager:schedule-week' %}" role="button">Schedule Weeks</a>
+    <a class="btn mb-3 bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'schedule_manager:schedule-week' %}" role="button">Schedule Week</a>
     <div class="jumbotron py-1 bg-scheduler-dark-2">
       <h2 class="font-weight-light text-center mb-3">Summary</h2>
       <p class="font-weight-light text-center">You have <strong>{{ num_activities }}</strong> active activit{% if num_activities != 1 %}ies{% else %}y{% endif %} in your schedule</p>
