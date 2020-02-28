@@ -45,5 +45,16 @@ def get_pollub_subjects_list():
                     subject.time_end = str(time[8:13])
 
                     subjects.append(subject)
+                elif len(my_strings) > 2:
+                    subject = Subject()
+                    subject.name = str(my_strings[0])
+                    subject.lecturer = 'Enter Your lecturer name'
+                    subject.class_ = str(my_strings[1])
+
+                    time = str(my_strings[2])
+                    subject.time_start = str(time[:5])
+                    subject.time_end = str(time[8:13])
+
+                    subjects.append(subject)
 
     return subjects
