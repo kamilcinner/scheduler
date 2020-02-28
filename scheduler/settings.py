@@ -23,9 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'wupnj_0$m(@1(l3ljeepfcs2ta=x=&=9_fd0rx0qbe-9vy%(uu')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# TODO: change debug to follow when deploy
-# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['localhost', '192.168.0.122', '192.168.43.130', 'scheduler-kamilcinner.herokuapp.com']
 
@@ -133,7 +131,6 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 
 
-# TODO: change backend to gmail for deploy
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
