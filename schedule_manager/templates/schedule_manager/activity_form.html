@@ -62,6 +62,7 @@
       </div>
       <div class="form-group">
         <button type="submit" class="btn bg-scheduler c-scheduler-dark">Save</button>
+        <a class="btn btn-warning c-scheduler-dark" href="{% if activity %}{% url 'schedule_manager:activity-detail' activity.pk %}{% else %}{% url 'schedule_manager:activity-list' %}{% endif %}" role="button">Cancel</a>
       </div>
     </div>
   </form>

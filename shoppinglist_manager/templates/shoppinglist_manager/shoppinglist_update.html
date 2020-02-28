@@ -30,6 +30,7 @@
         <button onclick="addForm()" type="button" class="btn bg-scheduler-dark-3 c-scheduler add-form-row">Add another</button>
         <button type="submit" class="btn bg-scheduler-dark-3 c-scheduler">Save</button>
       </div>
+      <a class="btn mt-2 btn-warning c-scheduler-dark" href="{% url 'shoppinglist_manager:slist-detail' shoppinglist.pk %}" role="button">Cancel</a>
     </form>
     <hr class="my-4 bg-scheduler-light">
     <p><strong>Last edit:</strong> {{ shoppinglist.date_added|date:'d M Y H:i' }}</p>

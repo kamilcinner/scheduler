@@ -8,7 +8,7 @@ from django.views import generic
 
 from schedule_manager.forms import ScheduleWeekSelectForm, ActivityCreateModelForm
 from schedule_manager.models import Activity
-from schedule_manager.utils import WEEK_DAYS, WeekDay
+from schedule_manager.utils import WEEK_DAYS, WeekDay, get_pollub_subjects_list
 
 
 @login_required
@@ -16,6 +16,7 @@ def schedule_week_detail_view(request):
     activities = Activity.objects.filter(owner__username__exact=request.user.username)
     if request.method == 'POST':
         form = ScheduleWeekSelectForm(request.POST)
+        context = {}
 
         if form.is_valid() and activities:
             # Date from form, this is our selected day
@@ -46,17 +47,17 @@ def schedule_week_detail_view(request):
                         week_day.activities.append(act)
                         got_at_least_one_activity = True
 
-            context = {'form': form}
-
             if got_at_least_one_activity:
                 context['week_days'] = week_days
 
-            return render(request, 'schedule_manager/scheduleweek.html', context=context)
+        context['form'] = form
+    # If request GET
+    else:
+        form = ScheduleWeekSelectForm()
+        context = {'form': form}
 
-    form = ScheduleWeekSelectForm()
-    context = {'form': form}
-    if activities:
-        context['first_select'] = True
+        if activities:
+            context['first_select'] = True
     return render(request, 'schedule_manager/scheduleweek.html', context=context)
 
 
@@ -121,3 +122,28 @@ def change_repeat_status(request, pk):
     activity.save()
 
     return HttpResponseRedirect(reverse('schedule_manager:activity-detail', args=[str(activity.pk)]))
+
+
+@login_required
+def get_activities_from_pollub(request):
+    subjects = get_pollub_subjects_list()
+    for sub in subjects:
+        new_activity = Activity()
+        new_activity.name = sub.name
+        new_activity.description = f'{sub.lecturer}, {sub.class_}'
+        new_activity.status_active = False
+        new_activity.repeat_weekly = True
+        new_activity.time_start = timezone.datetime.strptime(sub.time_start, '%H:%M').time()
+        new_activity.time_end = timezone.datetime.strptime(sub.time_end, '%H:%M').time()
+        new_activity.owner = request.user
+        new_activity.save()
+
+    return HttpResponseRedirect(reverse('schedule_manager:activity-list'))
+
+
+@login_required
+def delete_all_user_activities(request):
+    for act in Activity.objects.filter(owner__username__exact=request.user.username):
+        act.delete()
+
+    return HttpResponseRedirect(reverse('schedule_manager:activity-list'))

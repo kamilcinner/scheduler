@@ -13,4 +13,7 @@ urlpatterns = [
 
     path('activity/<uuid:pk>/changeactivity', views.change_activity_status, name='activity-change-active'),
     path('activity/<uuid:pk>/changerepeat', views.change_repeat_status, name='activity-change-repeat'),
+
+    path('pollub/', views.get_activities_from_pollub, name='activity-get-pollub'),
+    path('activities/delete/', views.delete_all_user_activities, name='activity-delete-all'),
 ]
