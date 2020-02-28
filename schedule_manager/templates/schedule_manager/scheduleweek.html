@@ -20,23 +20,25 @@
   {% if week_days %}
     {% for day in week_days %}
       <div class="jumbotron mb-3 p-2 bg-scheduler-dark-2 c-scheduler-white">
-        {% if day.activities %}
-          <h1 class="display-4">{{ day.get_week_day_name }}</h1>
+        {% if day.week_day_activity_task_list %}
+          <h1 class="display-4">{{ day.week_day_name }}</h1>
           <div class="list-group">
-            {% for act in day.activities %}
-              <a class="list-group-item bg-scheduler-dark-3" href="{% url 'schedule_manager:activity-detail' act.pk %}">
-                <h1 class="h5 font-weight-bold">{{ act.get_crispy_time }}</h1>
-                <h1 class="h5 lead">{{ act.name }}</h1>
-                <small class="text-muted">{{ act.description }}</small>
+            {% for act_task in day.week_day_activity_task_list %}
+              <a class="list-group-item {% if act_task.priority == 'h' %}bg-scheduler-dark-2 c-scheduler-white{% elif act_task.priority == 'n' %}bg-scheduler-dark-3{% elif act_task.priority == 'l' %}bg-scheduler-light c-scheduler-dark{% else %}bg-scheduler-white c-scheduler-dark-2{% endif %}" href="{{ act_task.get_absolute_url }}">
+                <h1 class="h5 font-weight-bold">{{ act_task.time }}</h1>
+                <h1 class="h5 lead">{{ act_task.name }}</h1>
+                <small class="text-muted">{{ act_task.description }}</small>
+                <p class="my-0">{% if act_task.priority == 'h' %}<small class="font-weight-bold text-warning">High</small>{% elif act_task.priority == 'n' %}<small class="font-weight-bold">Normal</small>{% elif act_task.priority == 'l' %}<small class="text-muted">Low</small>{% endif %}</p>
               </a>
             {% endfor %}
           </div>
         {% else %}
-          <h1 class="h4 lead text-muted">{{ day.get_week_day_name }} - no activity</h1>
+          <h1 class="h4 lead text-muted">{{ day.week_day_name }} - no activity</h1>
         {% endif %}
       </div>
     {% endfor %}
-  {% elif not first_select %}
+  {% else %}
+{#    elif not first_select#}
     <div class="jumbotron py-1 bg-scheduler">
       <p class="my-0 lead text-center">There are no activities in this week</p>
     </div>

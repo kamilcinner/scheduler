@@ -24,7 +24,7 @@
   </head>
   <body>
     <header class="sticky-top">
-      <nav class="navbar navbar-light bg-scheduler navbar-expand-md">
+      <nav class="navbar navbar-light bg-scheduler navbar-expand-lg">
         <a class="navbar-brand c-scheduler-dark-2" href="{% url 'index' %}"><img class="d-inline-block mr-1 align-bottom" src="{% static 'images/logo.png' %}" width="30" height="30" alt="logo"> Scheduler</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Navigation toggler">
           <span class="navbar-toggler-icon"></span>
@@ -36,14 +36,13 @@
               <a class="nav-link" href="{% url 'login' %}">Login</a>
               <a class="nav-link" href="{% url 'django_registration:user-create' %}">Register</a>
             {% else %}
+              <a class="nav-link" href="{% url 'schedule_manager:schedule-week' %}">Schedule Week</a>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Treasure</a>
                 <div class="dropdown-menu" aria-labelledby="submenu">
                   <a class="dropdown-item" href="{% url 'schedule_manager:activity-list' %}">Activities</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'task_manager:task-list' %}">Tasks</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{% url 'schedule_manager:schedule-week' %}">Schedule Week</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'shoppinglist_manager:slist-list' %}">Shopping Lists</a>
                 </div>
@@ -65,7 +64,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true">Addons</a>
                 <div class="dropdown-menu" aria-labelledby="submenu">
-                  <a class="dropdown-item" href="{% url 'schedule_manager:activity-get-pollub' %}">Get Subjects from Pollub</a>
+                  <a class="dropdown-item" href="{% url 'schedule_manager:activity-pollub-select' %}">Get Subjects from Pollub</a>
                 </div>
               </li>
             {% endif %}

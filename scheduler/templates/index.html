@@ -17,8 +17,9 @@
     <a class="btn mb-3 bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'schedule_manager:schedule-week' %}" role="button">Schedule Weeks</a>
     <div class="jumbotron py-1 bg-scheduler-dark-2">
       <h2 class="font-weight-light text-center mb-3">Summary</h2>
+      <p class="font-weight-light text-center">You have <strong>{{ num_activities }}</strong> active activit{% if num_activities != 1 %}ies{% else %}y{% endif %} in your schedule</p>
       <p class="font-weight-light text-center">You have <strong>{{ num_tasks }}</strong> task{% if num_tasks != 1 %}s{% endif %} on-going</p>
-      <p class="font-weight-light text-center">You have <strong>{{ num_active_slist }}</strong> active shopping list{% if num_active_slist != 1 %}s{% endif %}</p>
+      <p class="font-weight-light text-center">You have <strong>{{ num_active_slists }}</strong> active shopping list{% if num_active_slist != 1 %}s{% endif %}</p>
     </div>
 
   {% else %}

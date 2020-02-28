@@ -11,9 +11,10 @@ urlpatterns = [
     path('activity/<uuid:pk>/update', views.ActivityUpdateView.as_view(), name='activity-update'),
     path('activity/<uuid:pk>/delete', views.ActivityDeleteView.as_view(), name='activity-delete'),
 
-    path('activity/<uuid:pk>/changeactivity', views.change_activity_status, name='activity-change-active'),
-    path('activity/<uuid:pk>/changerepeat', views.change_repeat_status, name='activity-change-repeat'),
+    # path('activity/<uuid:pk>/changeactivity', views.change_activity_status, name='activity-change-active'),
+    # path('activity/<uuid:pk>/changerepeat', views.change_repeat_status, name='activity-change-repeat'),
 
-    path('pollub/', views.get_activities_from_pollub, name='activity-get-pollub'),
-    path('activities/delete/', views.delete_all_user_activities, name='activity-delete-all'),
+    path('pollub/get', views.activity_pollub_select_view, name='activity-pollub-select'),
+    path('pollub/get/cs_4_4_7', views.activity_pollub_get_view, name='activity-pollub-get'),
+    path('activities/delete/', views.activity_delete_all_view, name='activity-delete-all'),
 ]

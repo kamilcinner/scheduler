@@ -12,7 +12,8 @@ class Activity(models.Model):
     class Meta:
         ordering = [
             'date',
-            'time_start'
+            'time_start',
+            'status_active'
         ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -26,15 +27,15 @@ class Activity(models.Model):
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f'{self.name}, {self.date} ({self.get_week_day_name}) ({self.get_crispy_time})'
+        return f'{self.name}, {self.date} ({self.week_day_name}) ({self.crispy_time})'
 
     def get_absolute_url(self):
         return reverse('schedule_manager:activity-detail', args=[str(self.id)])
 
     @property
-    def get_week_day_name(self):
+    def week_day_name(self):
         return f'{self.date.strftime("%A")}'
 
     @property
-    def get_crispy_time(self):
+    def crispy_time(self):
         return f'{self.time_start.strftime("%H:%M")} - {self.time_end.strftime("%H:%M")}'

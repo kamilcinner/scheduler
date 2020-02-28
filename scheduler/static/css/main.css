@@ -6,6 +6,9 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 17px;
 }
+main .container {
+    max-width: 600px;
+}
 .dropdown-menu {
     background-color: #2F3336;
 }
@@ -65,6 +68,9 @@ textarea {
 }
 .bg-scheduler-light {
     background-color: #adadad !important;
+}
+.bg-scheduler-white {
+    background-color: white !important;
 }
 .c-scheduler {
     color: #00a161 !important;

@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <div class="jumbotron py-3 bg-scheduler-dark-2">
+  <h1>Get Subjects from Pollub</h1>
+  <p>You are going to add all subjects from Pollub ats4 schedule</p>
+  <p>For now You can only get schedule for II year Computer Science, group 4.7</p>
+  <p>Then you will have to edit every activity (subject) and add date for each manually, because default date is set to today</p>
+  <p>Then You switch status to active</p>
+  <a class="btn bg-scheduler c-scheduler-dark" href="{% url 'schedule_manager:activity-pollub-get' %}" role="button">Proceed</a>
+  <a class="btn btn-warning c-scheduler-dark" href="{% url 'index' %}" role="button">Cancel</a>
+  </div>
+{% endblock %}

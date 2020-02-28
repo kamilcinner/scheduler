@@ -23,6 +23,8 @@
     {% endif %}
   </div>
   {% if task.owner.username == user.username %}
-    <a class="btn bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'task_manager:task-list' %}" role="button">Back to Tasks</a>
+    <a class="mb-2 btn bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'task_manager:task-list' %}" role="button">Go to Tasks</a>
+    <a class="mb-2 btn bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'schedule_manager:schedule-week' %}" role="button">Go to Schedule Week</a>
+    <a class="btn bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'task_manager:task-create' %}" role="button">Create another Task</a>
   {% endif %}
 {% endblock %}

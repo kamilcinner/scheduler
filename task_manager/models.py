@@ -34,6 +34,10 @@ class Task(models.Model):
             return True
         return False
 
+    @property
+    def crispy_time(self):
+        return f'{self.due_date.astimezone(timezone.get_default_timezone()).time().strftime("%H:%M")}'
+
     def get_absolute_url(self):
         return reverse('task_manager:task-detail', args=[str(self.id)])
 

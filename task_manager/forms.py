@@ -113,7 +113,7 @@ class TaskCreateModelForm(forms.ModelForm):
         minute = int(self.cleaned_data['minute'])
 
         task = super().save(commit=False)
-        task.due_date = timezone.datetime(year=year, month=month, day=day, hour=hour, minute=minute)
+        task.due_date = timezone.datetime(year=year, month=month, day=day, hour=hour, minute=minute).astimezone(timezone.get_default_timezone())
 
         if commit:
             task.save()

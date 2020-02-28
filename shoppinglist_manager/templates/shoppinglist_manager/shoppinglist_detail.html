@@ -26,6 +26,6 @@
     {% endif %}
   </div>
   {% if shoppinglist.owner.username == user.username %}
-    <a class="btn bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'shoppinglist_manager:slist-list' %}" role="button">Back to Shopping Lists</a>
+    <a class="btn bg-scheduler c-scheduler-dark btn-lg w-100" href="{% url 'shoppinglist_manager:slist-list' %}" role="button">Go to Shopping Lists</a>
   {% endif %}
 {% endblock %}
