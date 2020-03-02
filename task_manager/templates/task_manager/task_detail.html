@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="jumbotron mb-3 p-2 {% if task.priority == 'h' %}bg-scheduler-dark-2 c-scheduler-white{% elif task.priority == 'l' %}bg-scheduler-light c-scheduler-dark{% else %}bg-scheduler-dark-3 c-scheduler-light{% endif %}">
-    <h1 class="display-4">{{ task.name }}</h1>
+    <h1 class="font-weight-light">{{ task.name }}</h1>
     {% if task.is_shared %}<p class="font-weight-light my-0 text-success">Shared</p>{% endif %}
     {% if not task.status and task.is_overdue %}<p class="my-0"><strong class="text-danger"> Overdue!</strong></p>{% endif %}
     {% if task.status %}<p class="my-0"><strong class="text-success"> Already done!</strong></p>{% endif %}
