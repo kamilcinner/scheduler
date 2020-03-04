@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -26,8 +25,9 @@ def schedule_week_detail_view(request):
         if form.is_valid():
             # Date from form, this is our selected day
             form_date = form.cleaned_data['date'] + timezone.timedelta(weeks=int(form.cleaned_data['week_shift']))
+            # Create unbound form to reset initial date
             form = ScheduleWeekSelectForm()
-            form.fields['date'] = forms.DateField(initial=form_date.strftime('%Y-%m-%d'), label='Week day date')
+            form.initial['date'] = form_date.strftime('%Y-%m-%d')
         else:
             form_date = timezone.datetime.today().date()
     else:
