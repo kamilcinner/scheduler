@@ -6,6 +6,11 @@ from schedule_manager.models import Activity
 
 class ScheduleWeekSelectForm(forms.Form):
     date = forms.DateField(initial=timezone.datetime.today().strftime('%Y-%m-%d'), label='Week day date')
+    week_shift = forms.IntegerField(initial=0)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['week_shift'].widget = forms.HiddenInput()
 
 
 class ActivityCreateModelForm(forms.ModelForm):

@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponseRedirect
+from django import forms
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
@@ -24,7 +25,9 @@ def schedule_week_detail_view(request):
         form = ScheduleWeekSelectForm(request.POST)
         if form.is_valid():
             # Date from form, this is our selected day
-            form_date = form.cleaned_data['date']
+            form_date = form.cleaned_data['date'] + timezone.timedelta(weeks=int(form.cleaned_data['week_shift']))
+            form = ScheduleWeekSelectForm()
+            form.fields['date'] = forms.DateField(initial=form_date.strftime('%Y-%m-%d'), label='Week day date')
         else:
             form_date = timezone.datetime.today().date()
     else:
@@ -35,7 +38,6 @@ def schedule_week_detail_view(request):
     context['form'] = form
 
     if activities or tasks:
-        print('going')
         # Get date of Monday in a week in which selected day occurs
         # week_day[0] is week day name
         # week_day[1] is week day index - Monday is 0, Sunday is 6

@@ -1,5 +1,9 @@
 {% extends 'base_generic.html' %}
 
+{% load static %}
+
+{% block script %}<script src="{% static 'schedule_manager/js/week_shifter.js' %}"></script>{% endblock %}
+
 {% block content %}
   <form method="post">
     {% csrf_token %}
@@ -13,8 +17,19 @@
         {% endfor %}
       </div>
       <div class="form-group">
+        {{ form.week_shift }}
         <button type="submit" class="btn bg-scheduler c-scheduler-dark btn-lg w-100">Show</button>
       </div>
+      <dvi class="form-group">
+        <div class="form-row">
+          <div class="col-6">
+            <button id="previous-week-btn" type="submit" class="btn bg-scheduler c-scheduler-dark w-100">Previous week</button>
+          </div>
+          <div class="col-6">
+            <button id="next-week-btn" type="submit" class="btn bg-scheduler c-scheduler-dark w-100">Next week</button>
+          </div>
+        </div>
+      </dvi>
     </div>
   </form>
   {% if week_days %}
