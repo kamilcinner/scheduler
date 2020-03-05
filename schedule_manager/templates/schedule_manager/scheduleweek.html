@@ -5,7 +5,7 @@
 {% block script %}<script src="{% static 'schedule_manager/js/week_shifter.js' %}"></script>{% endblock %}
 
 {% block content %}
-  <form method="post">
+  <form id="schedule-week-form" method="post">
     {% csrf_token %}
     <div class="jumbotron py-2 bg-scheduler-dark-2">
       <div class="form-group">
@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
         {{ form.week_shift }}
-        <button type="submit" class="btn bg-scheduler c-scheduler-dark btn-lg w-100">Show</button>
+        <button id="current-week-btn" type="submit" class="btn bg-scheduler c-scheduler-dark btn-lg w-100">Show current week</button>
       </div>
       <dvi class="form-group">
         <div class="form-row">
