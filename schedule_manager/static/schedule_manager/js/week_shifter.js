@@ -13,9 +13,9 @@ function next_week_shift() {
 function set_today_date() {
     'use strict';
     var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
 
     today = yyyy + '-' + mm + '-' + dd;
     document.getElementById('id_date').setAttribute('value', today);
