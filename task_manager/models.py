@@ -42,4 +42,4 @@ class Task(models.Model):
         return reverse('task_manager:task-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.name} ({self.due_date.strftime("%d %b %Y %H:%M")})'
+        return f'{self.name} ({self.due_date.astimezone(timezone.get_default_timezone()).strftime("%d %b %Y %H:%M")})'
