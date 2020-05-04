@@ -28,7 +28,7 @@ class ShoppingListItem(models.Model):
         ordering = ['status', 'name']
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    s_list = models.ForeignKey(ShoppingList, on_delete=models.SET_NULL, null=True)
+    s_list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100, verbose_name='Product name', blank=True)
     status = models.BooleanField(default=False, verbose_name='Bought')
 
